@@ -1,7 +1,8 @@
 cryptonote-universal-pool (forknote edition)
 ====================
 
-High performance Node.js (with native C addons) mining pool for Forknote based coins such as Bytecoin, Dashcoin, etc..
+High performance Node.js (with native C addons) mining pool for Cryptonote based coins, created with the Forknote software such as Bytecoin, Dashcoin, etc..
+
 Comes with lightweight example front-end script which uses the pool's AJAX API.
 
 
