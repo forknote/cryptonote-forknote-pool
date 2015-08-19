@@ -1,7 +1,7 @@
-cryptonote-universal-pool
+cryptonote-universal-pool (forknote edition)
 ====================
 
-High performance Node.js (with native C addons) mining pool for CryptoNote based coins such as Bytecoin, DuckNote, Monero, QuazarCoin, Boolberry, Dashcoin, etc..
+High performance Node.js (with native C addons) mining pool for Forknote based coins such as Bytecoin, Dashcoin, etc..
 Comes with lightweight example front-end script which uses the pool's AJAX API.
 
 
@@ -75,24 +75,18 @@ Comes with lightweight example front-end script which uses the pool's AJAX API.
 * [CryptoNote Technology](https://cryptonote.org)
 * [CryptoNote Forum](https://forum.cryptonote.org/)
 * [CryptoNote Universal Pool Forum](https://bitcointalk.org/index.php?topic=705509)
+* [Forknote](https://forknote.net)
 
 #### Pools Using This Software
 
-* http://xminingpool.com
-* http://extremepool.org
-* http://noclaymorefee.com
-* http://nicepool.org
-* https://yaymining.com
-* http://bbr.unipool.pro
-* http://multihash.de
-* http://monero.rs
-* http://backup-pool.com/monero
+* http://democats.org
 
 Usage
 ===
 
 #### Requirements
 * Coin daemon(s) (find the coin's repo and build latest version from source)
+* walletd (Bytecoin/Forknote v1.0.7+
 * [Node.js](http://nodejs.org/) v0.10+ ([follow these installation instructions](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager))
 * [Redis](http://redis.io/) key-value store v2.6+ ([follow these instructions](http://redis.io/topics/quickstart))
 * libssl required for the node-multi-hashing module
@@ -111,7 +105,7 @@ you are using - a good place to start with redis is [data persistence](http://re
 Installing pool on different Linux distributives is different because it depends on system default components and versions. For now the easiest way to install pool is to use Ubuntu 14 LTS. Thus, all you had to do in order to prepare Ubunty 14 for pool installation is to run:
 
 ```bash
-sudo apt-get install git redis-server libboost1.55-all-dev nodejs-dev nodejs-legacy npm cmake libssl-dev
+sudo apt-get install git build-essential redis-server libboost1.55-all-dev nodejs-dev nodejs-legacy npm cmake libssl-dev
 ```
 
 
@@ -121,7 +115,7 @@ sudo apt-get install git redis-server libboost1.55-all-dev nodejs-dev nodejs-leg
 Clone the repository and run `npm update` for all the dependencies to be installed:
 
 ```bash
-git clone https://github.com/fancoder/cryptonote-universal-pool.git pool
+git clone https://github.com/forknote/cryptonote-universal-pool.git pool
 cd pool
 npm update
 ```
@@ -132,16 +126,16 @@ npm update
 Explanation for each field:
 ```javascript
 /* Used for storage in redis so multiple coins can share the same redis instance. */
-"coin": "ducknote",
+"coin": "dashcoin",
 
 /* Used for front-end display */
-"symbol": "XDN",
+"symbol": "DSH",
 
 /* Minimum units in a single coin, see COIN constant in DAEMON_CODE/src/cryptonote_config.h */
-"coinUnits": 100000000,
+"coinUnits": 1000000000000,
 
 /* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
-"coinDifficultyTarget": 240,
+"coinDifficultyTarget": 120,
 
 "logging": {
 
@@ -177,7 +171,7 @@ Explanation for each field:
     "clusterForks": "auto",
 
     /* Address where block rewards go, and miner payments come from. */
-    "poolAddress": "ddehi53dwGSBEXdhTYtga2R3fS4y9hRz4YHAsLABJpH75yUd5EDQmuL3yDBj1mG6MMeDfydY9vp4zFVVNQ99FTYq2PpsFJP2y"
+    "poolAddress": "D6WLtrV1SBWV8HWQzQv8uuYuGy3uwZ8ah5iT5HovSqhTKMauquoTsKP8RBJzVqVesX87poYWQgkGWB4NWHJ6Ravv93v4BaE"
 
     /* Poll RPC daemons for new blocks every this many milliseconds. */
     "blockRefreshInterval": 1000,
@@ -216,7 +210,7 @@ Explanation for each field:
     },
 
     /* Set difficulty on miner client side by passing <address> param with .<difficulty> postfix
-       minerd -u 4AsBy39rpUMTmgTUARGq2bFQWhDhdQNekK5v4uaLU699NPAnx9CubEJ82AkvD5ScoAZNYRwBxybayainhyThHAZWCdKmPYn.5000 */
+       minerd -u D3z2DDWygoZU4NniCNa4oMjjKi45dC2KHUWUyD1RZ1pfgnRgcHdfLVQgh5gmRv4jwEjCX5LoLERAf5PbjLS43Rkd8vFUM1m.5000 */
     "fixedDiff": {
         "enabled": true,
         "separator": ".", // character separator between <address> and <difficulty>
@@ -282,13 +276,13 @@ Explanation for each field:
 /* Coin daemon connection details. */
 "daemon": {
     "host": "127.0.0.1",
-    "port": 18081
+    "port": 29081
 },
 
 /* Wallet daemon connection details. */
 "wallet": {
     "host": "127.0.0.1",
-    "port": 8082
+    "port": 29082
 },
 
 /* Redis connection into. */
@@ -305,7 +299,7 @@ Explanation for each field:
     },
     "wallet": {
         "checkInterval": 60,
-        "rpcMethod": "getbalance"
+        "rpcMethod": "get_address_count"
     }
 
 /* Collect pool statistics to display in frontend charts  */
@@ -492,9 +486,9 @@ curl 127.0.0.1:18081/json_rpc -d '{"method":"getblockheaderbyheight","params":{"
 
 Donations
 ---------
-* BTC: `1667jMt7NTZDaC8WXAxtMYBR8DPWCVoU4d`
-* MRO: `48Y4SoUJM5L3YXBEfNQ8bFNsvTNsqcH5Rgq8RF7BwpgvTBj2xr7CmWVanaw7L4U9MnZ4AG7U6Pn1pBhfQhFyFZ1rL1efL8z`
-
+* BTC: `1M5ihpjUwQ86XWHGNVGGd3LgpJajpPJ6uR`
+* BCN: `29odzDJVKk57mRB9h63KbSMLd5zgtL3225cE19c1RDQ4eQhj5KKNjcsLDSHaTQBBK4EmVA72ddkUoZjpeKUuNESi6gQ9F6p`
+* DSH: `D6WLtrV1SBWV8HWQzQv8uuYuGy3uwZ8ah5iT5HovSqhTKMauquoTsKP8RBJzVqVesX87poYWQgkGWB4NWHJ6Ravv93v4BaE`
 Credits
 ===
 
