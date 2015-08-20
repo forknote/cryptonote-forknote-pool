@@ -1,4 +1,4 @@
-cryptonote-universal-pool (forknote edition)
+cryptonote-forknote-pool
 ====================
 
 High performance Node.js (with native C addons) mining pool for Cryptonote based coins, created with the Forknote software such as Bytecoin, Dashcoin, etc..
@@ -457,8 +457,8 @@ No cryptonote based coins have a testnet mode (yet) but you can effectively crea
 * Open `/src/p2p/net_node.inl` and remove lines with `ADD_HARDCODED_SEED_NODE` to prevent it from connecting to mainnet (Monero example: http://git.io/0a12_Q)
 * Build the coin from source
 * You now need to run two instance of the daemon and connect them to each other (without a connection to another instance the daemon will not accept RPC requests)
-  * Run first instance with `./coind --p2p-bind-port 28080 --allow-local-ip`
-  * Run second instance with `./coind --p2p-bind-port 5011 --rpc-bind-port 5010 --add-peer 0.0.0.0:28080 --allow-local-ip`
+  * Run first instance with `./forknoted --p2p-bind-port 28080 --allow-local-ip`
+  * Run second instance with `./forknoted --p2p-bind-port 5011 --rpc-bind-port 5010 --add-peer 0.0.0.0:28080 --allow-local-ip`
 * You should now have a local testnet setup. The ports can be changes as long as the second instance is pointed to the first instance, obviously
 
 *Credit to surfer43 for these instructions*
