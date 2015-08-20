@@ -409,13 +409,13 @@ var api = "http://poolhost:8117";
 var poolHost = "poolhost.com";
 
 /* IRC Server and room used for embedded KiwiIRC chat. */
-var irc = "irc.freenode.net/#ducknote";
+var irc = "irc.freenode.net/#forknote";
 
 /* Contact email address. */
 var email = "support@poolhost.com";
 
 /* Market stat display params from https://www.cryptonator.com/widget */
-var cryptonatorWidget = ["XDN-BTC", "XDN-USD", "XDN-EUR"];
+var cryptonatorWidget = ["DSH-BTC", "DSH-USD", "DSH-EUR"];
 
 /* Download link to cryptonote-easy-miner for Windows users. */
 var easyminerDownload = "https://github.com/zone117x/cryptonote-easy-miner/releases/";
