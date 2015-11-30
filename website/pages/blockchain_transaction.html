@@ -1,0 +1,283 @@
+<style>
+    .marketFooter{
+        font-size: 10px;
+        opacity: 0.6;
+    }
+    #networkLastReward{
+        text-transform: uppercase;
+    }
+    #lastHash{
+        font-family: 'Inconsolata', monospace;
+        font-size: 0.8em;
+    }
+    #poolDonations{
+        font-size: 0.75em;
+    }
+    #miningProfitCalc{
+        margin: 35px 0;
+    }
+    #calcHashDropdown{
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+    }
+    #calcHashHolder{
+        width: 590px;
+        max-width: 100%;
+    }
+    #calcHashRate{
+        z-index: inherit;
+        font-family: 'Inconsolata', monospace;
+    }
+    #calcHashAmount{
+        font-family: 'Inconsolata', monospace;
+    }
+    #calcHashResultsHolder{
+        min-width: 145px;
+        max-width: 145px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    #yourStatsInput{
+        z-index: inherit;
+        font-family: 'Inconsolata', monospace;
+    }
+    #yourAddressDisplay > span {
+        font-family: 'Inconsolata', monospace;
+    }
+    #lookUp > span:nth-child(2){
+        display: none;
+    }
+    .yourStats{
+        display: none;
+    }
+    #yourAddressDisplay{
+        display: inline-block;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+        font-family: 'Inconsolata', monospace;
+        font-size: 0.9em;
+    }
+    #addressError{
+        color: red;
+    }
+
+
+    #payments_rows > tr > td{
+        vertical-align: middle;
+        font-family: 'Inconsolata', monospace;
+        font-size: 0.95em;
+        text-align: center;
+    }
+    #payments_rows > tr > td:nth-child(2){
+        text-align: left;
+    }
+
+</style>
+
+
+<div id="siteInfo">
+    <!-- Description or information about this pool -->
+</div>
+
+
+<div class="row">
+    <h3>Transaction</h3>
+    <div class="col-md-12 stats">
+        <div><i class="fa fa-circle-o"></i> Hash: <span id="transaction.hash"></span></div>
+        <div><i class="fa fa-circle-o"></i> Fee: <span id="transaction.fee"></span></div>
+        <div><i class="fa fa-circle-o"></i> Sum of outputs: <span id="transaction.amount_out"></span></div>
+        <div><i class="fa fa-circle-o"></i> Size: <span id="transaction.size"></span></div>
+        <div id="div_transaction_paymentId"><i class="fa fa-circle-o"></i> Payment ID: <span id="transaction.paymentId"></span></div>
+        <div id="div_transaction_mixin"><i class="fa fa-circle-o"></i> Mixin count: <span id="transaction.mixin"></span></div>
+    </div>
+</div>
+
+
+<div class="row">
+    <h3>From block</h3>
+    <div class="col-md-12 stats">
+        <div><i class="fa fa-circle-o"></i> Hash: <span id="block.hash"></span></div>
+        <div><i class="fa fa-circle-o"></i> Height: <span id="block.height"></span></div>
+        <div><i class="fa fa-circle-o"></i> Timestamp: <span id="block.timestamp"></span></div>
+    </div>
+</div>
+
+<h3 class="inputs">Inputs</h3>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th><i class="fa fa-money"></i> Amount</th>
+            <th><i class="fa fa-paw"></i> Image</th>
+        </tr>
+        </thead>
+        <tbody id="inputs_rows">
+
+        </tbody>
+    </table>
+</div>
+
+
+<h3 class="outputs">Outputs</h3>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th><i class="fa fa-money"></i> Amount</th>
+            <th><i class="fa fa-paw"></i> Key</th>
+        </tr>
+        </thead>
+        <tbody id="outputs_rows">
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+    var xhrGetTransaction;
+
+    currentPage = {
+        destroy: function(){
+            if (xhrGetTransaction) xhrGetTransaction.abort();
+        },
+        init: function(){
+            renderTransaction();
+        },
+        update: function(){
+        }
+    };
+
+    function renderTransaction(){
+        if (xhrGetTransaction) xhrGetTransaction.abort();
+        xhrGetTransaction = $.ajax({
+            url: api_blockexplorer + '/json_rpc',
+            method: "POST",
+            data: JSON.stringify({
+                jsonrpc:"2.0",
+                id: "test",
+                method:"f_transaction_json",
+                params: {
+                    hash: urlParam('hash')
+                }
+            }),
+            dataType: 'json',
+            cache: 'false',
+            success: function(data){
+                transaction = data.result.txDetails;
+                inputs = data.result.tx.vin;
+                outputs = data.result.tx.vout;
+                block = data.result.block;
+                console.log(JSON.stringify(inputs));
+
+                updateText('transaction.hash', transaction.hash);
+                updateText('transaction.amount_out', getReadableCoins(transaction.amount_out));
+                updateText('transaction.fee', getReadableCoins(transaction.fee));
+                updateText('transaction.mixin', transaction.mixin);
+                if (!transaction.mixin)
+                    $('#div_transaction_mixin').hide();
+                updateText('transaction.paymentId', transaction.paymentId);
+                if (!transaction.paymentId)
+                    $('#div_transaction_paymentId').hide();
+                updateText('transaction.size', transaction.size);
+
+                updateTextLinkable('block.hash', formatBlockLink(block.hash));
+                updateText('block.height', block.height);
+                updateText('block.timestamp', formatDate(block.timestamp));
+                renderInputs(inputs);
+                renderOutputs(outputs);
+            }
+        });
+    }
+
+
+    function getInputCells(input){
+        return '<td>' + getReadableCoins(input.value.amount) + '</td>' +
+            '<td>' + input.value.k_image + '</td>';
+    }
+
+
+    function getInputRowElement(input, jsonString){
+
+        var row = document.createElement('tr');
+        row.setAttribute('data-json', jsonString);
+        row.setAttribute('data-k_image', input.value.k_image);
+        row.setAttribute('id', 'inputRow' + input.value.k_image);
+
+        row.innerHTML = getInputCells(input);
+
+        return row;
+    }
+
+    function renderInputs(inputResults){
+
+        var $inputsRows = $('#inputs_rows');
+
+        for (var i = 0; i < inputResults.length; i++){
+
+            var input = inputResults[i];
+            if (!input.value.amount)
+                continue;
+
+            var inputJson = JSON.stringify(input);
+
+            var existingRow = document.getElementById('inputRow' + input.value.k_image);
+
+            if (existingRow && existingRow.getAttribute('data-json') !== inputJson){
+                $(existingRow).replaceWith(getInputRowElement(input, inputJson));
+            }
+            else if (!existingRow){
+
+                var inputElement = getInputRowElement(input, inputJson);
+                $inputsRows.append(inputElement);
+            }
+
+        }
+    }
+
+
+    function getOutputCells(output){
+        return '<td>' + getReadableCoins(output.amount) + '</td>' +
+            '<td>' + output.target.data.key + '</td>';
+    }
+
+
+    function getOutputRowElement(output, jsonString){
+
+        var row = document.createElement('tr');
+        row.setAttribute('data-json', jsonString);
+        row.setAttribute('data-k_image', output.target.data.key);
+        row.setAttribute('id', 'outputRow' + output.target.data.key);
+
+        row.innerHTML = getOutputCells(output);
+
+        return row;
+    }
+
+    function renderOutputs(outputResults){
+
+        var $outputsRows = $('#outputs_rows');
+
+        for (var i = 0; i < outputResults.length; i++){
+
+            var output = outputResults[i];
+
+            var outputJson = JSON.stringify(output);
+
+            var existingRow = document.getElementById('outputRow' + output.target.data.key);
+
+            if (existingRow && existingRow.getAttribute('data-json') !== outputJson){
+                $(existingRow).replaceWith(getOutputRowElement(output, outputJson));
+            }
+            else if (!existingRow){
+
+                var outputElement = getOutputRowElement(output, outputJson);
+                $outputsRows.append(outputElement);
+            }
+
+        }
+    }
+</script>

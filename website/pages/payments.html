@@ -59,6 +59,8 @@
         destroy: function(){
             if (xhrGetPayments) xhrGetPayments.abort();
         },
+        init: function(){
+        },
         update: function(){
             updateText('paymentsTotal', lastStats.pool.totalPayments.toString());
             updateText('paymentsTotalPaid', lastStats.pool.totalMinersPaid.toString());

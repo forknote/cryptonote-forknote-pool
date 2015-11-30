@@ -1,0 +1,146 @@
+<style>
+
+</style>
+
+
+<div id="siteInfo">
+    <!-- Description or information about this pool -->
+</div>
+
+<div class="row">
+    <h3>Block <small id="block.hash"></small></h3>
+    <div class="col-md-6 stats">
+        <div><i class="fa fa-circle-o"></i> Height: <span id="block.height"></span></div>
+        <div><i class="fa fa-circle-o"></i> Timestamp: <span id="block.timestamp"></span></div>
+        <div><i class="fa fa-circle-o"></i> Difficulty: <span id="block.difficulty"></span></div>
+        <div><i class="fa fa-circle-o"></i> Orphan: <span id="block.orphan"></span></div>
+        <div><i class="fa fa-circle-o"></i> Transactions: <span id="block.transactions"></span></a></div>
+        <div><i class="fa fa-circle-o"></i> Total coins in the network: <span id="block.totalCoins"></span></div>
+        <div><i class="fa fa-circle-o"></i> Total transactions in the network: <span id="block.totalTransactions"></span></div>
+    </div>
+
+    <div class="col-md-6 stats">
+        <div><i class="fa fa-circle-o"></i> Total transactions size, bytes: <span id="block.transactionsSize"></span></div>
+        <div><i class="fa fa-circle-o"></i> Total block size, bytes: <span id="block.blockSize"></span></div>
+        <div><i class="fa fa-circle-o"></i> Current txs median, bytes: <span id="block.currentTxsMedian"></span></div>
+        <div><i class="fa fa-circle-o"></i> Effective txs median, bytes: <span id="block.effectiveTxsMedian"></span></div>
+        <div><i class="fa fa-circle-o"></i> Reward penalty: <span id="block.rewardPenalty"></span></div>
+        <div><i class="fa fa-circle-o"></i> Base Reward: <span id="block.baseReward"></span></div>
+        <div><i class="fa fa-circle-o"></i> Transactions fee: <span id="block.transactionsFee"></span></div>
+        <div><i class="fa fa-circle-o"></i> Reward: <span id="block.reward"></span></div>
+    </div>
+</div>
+
+<h3 class="transactions">Тransactions</h3>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th><i class="fa fa-paw"></i> Hash</th>
+            <th><i class="fa fa-paw"></i> Fee</th>
+            <th><i class="fa fa-money"></i> Total Amount</th>
+            <th><i class="fa fa-arrows"></i> Size</th>
+        </tr>
+        </thead>
+        <tbody id="transactions_rows">
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+    var block, xhrGetBlock;
+
+    currentPage = {
+        destroy: function(){
+            if (xhrGetBlock) xhrGetBlock.abort();
+        },
+        init: function(){
+            renderInitialBlocks();
+        },
+        update: function(){
+        }
+    };
+
+    function renderInitialBlocks(){
+        if (xhrGetBlock) xhrGetBlock.abort();
+        xhrGetBlock = $.ajax({
+            url: api_blockexplorer + '/json_rpc',
+            method: "POST",
+            data: JSON.stringify({
+                jsonrpc:"2.0",
+                id: "test",
+                method:"f_block_json",
+                params: {
+                    hash: urlParam('hash')
+                }
+            }),
+            dataType: 'json',
+            cache: 'false',
+            success: function(data){
+                block = data.result.block;
+                updateText('block.hash', block.hash);
+                updateText('block.height', block.height);
+                updateText('block.timestamp', formatDate(block.timestamp));
+                updateText('block.difficulty', block.difficulty);
+                updateText('block.orphan', block.orphan_status ? "yes" : "no");
+                updateText('block.transactions', block.transactions.length);
+                updateText('block.transactionsSize', block.transactionsCumulativeSize);
+                updateText('block.blockSize', block.blockSize);
+                updateText('block.currentTxsMedian', block.sizeMedian);
+                updateText('block.effectiveTxsMedian', block.effectiveSizeMedian);
+                updateText('block.rewardPenalty', block.penalty + "%");
+                updateText('block.baseReward', getReadableCoins(block.baseReward));
+                updateText('block.transactionsFee', getReadableCoins(block.totalFeeAmount));
+                updateText('block.reward', getReadableCoins(block.reward));
+                updateText('block.totalCoins', getReadableCoins(block.alreadyGeneratedCoins));
+                updateText('block.totalTransactions', block.alreadyGeneratedTransactions);
+                renderTransactions(block.transactions)
+            }
+        });
+    }
+
+    function getTransactionCells(transaction){
+        return '<td>' + formatPaymentLink(transaction.hash) + '</td>' +
+                '<td>' + getReadableCoins(transaction.fee, 4, true) + '</td>' +
+                '<td>' + getReadableCoins(transaction.amount_out, 4, true) + '</td>' +
+                '<td>' + transaction.size + '</td>';
+    }
+
+
+    function getTransactionRowElement(transaction, jsonString){
+
+        var row = document.createElement('tr');
+        row.setAttribute('data-json', jsonString);
+        row.setAttribute('data-hash', transaction.hash);
+        row.setAttribute('id', 'transactionRow' + transaction.hash);
+
+        row.innerHTML = getTransactionCells(transaction);
+
+        return row;
+    }
+
+    function renderTransactions(transactionResults){
+
+        var $transactionsRows = $('#transactions_rows');
+
+        for (var i = 0; i < transactionResults.length; i++){
+
+            var transaction = transactionResults[i];
+
+            var transactionJson = JSON.stringify(transaction);
+
+            var existingRow = document.getElementById('transactionRow' + transaction.hash);
+
+            if (existingRow && existingRow.getAttribute('data-json') !== transactionJson){
+                $(existingRow).replaceWith(getTransactionRowElement(transaction, transactionJson));
+            }
+            else if (!existingRow){
+
+                var transactionElement = getTransactionRowElement(transaction, transactionJson);
+                $transactionsRows.append(transactionElement);
+            }
+
+        }
+    }
+</script>

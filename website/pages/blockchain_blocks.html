@@ -24,8 +24,9 @@
 </style>
 
 <div class="blocksStatHolder">
-    <span class="bg-primary">Total Blocks Mined: <span id="blocksTotal"></span></span>
-    <span class="bg-info">Maturity Depth Requirement: <span id="blocksMaturityCount"></span></span>
+    <span class="bg-primary">Total Blocks: <span id="networkLastReward"></span></span>
+    <span class="bg-primary">Hash Rate: <span id="networkHashrate"></span></span>
+    <span class="bg-primary">Difficulty: <span id="networkDifficulty"></span></span>
 </div>
 
 <hr>
@@ -35,11 +36,10 @@
         <thead>
         <tr>
             <th><i class="fa fa-bars"></i> Height</th>
-            <th title="How many more blocks network must mine before this block is matured"><i class="fa fa-link"></i> Maturity</th>
-            <th><i class="fa fa-unlock-alt"></i> Difficulty</th>
+            <th><i class="fa fa-unlock-alt"></i> Size</th>
             <th><i class="fa fa-paw"></i> Block Hash</th>
             <th><i class="fa fa-clock-o"></i> Time Found</th>
-            <th><i class="fa fa-star-half-o"></i> Shares/Diff</th>
+            <th><i class="fa fa-bars"></i> Transactions</th>
         </tr>
         </thead>
         <tbody id="blocks_rows">
@@ -61,29 +61,55 @@
         init: function(){
         },
         update: function(){
-            updateText('blocksTotal', lastStats.pool.totalBlocks.toString());
-            updateText('blocksMaturityCount', lastStats.config.depth.toString());
-            renderBlocks(lastStats.pool.blocks);
+            updateText('networkLastReward', lastStats.network.height.toString());
+            updateText('networkHashrate', getReadableHashRateString(lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) + '/sec');
+            updateText('networkDifficulty', lastStats.network.difficulty.toString());
+            renderInitialBlocks();
         }
     };
-
-
 
     var xhrGetBlocks;
     $('#loadMoreBlocks').click(function(){
         if (xhrGetBlocks) xhrGetBlocks.abort();
         xhrGetBlocks = $.ajax({
-            url: api + '/get_blocks',
-            data: {
-                height: $('#blocks_rows').children().last().data('height')
-            },
+            url: api_blockexplorer + '/json_rpc',
+            method: "POST",
+            data: JSON.stringify({
+                jsonrpc:"2.0",
+                id: "test",
+                method:"f_blocks_list_json",
+                params: {
+                    height: $('#blocks_rows').children().last().data('height')
+                }
+            }),
             dataType: 'json',
             cache: 'false',
             success: function(data){
-                renderBlocks(data);
+                renderBlocks(data.result.blocks);
             }
         });
     });
+
+    function renderInitialBlocks(){
+        if (xhrGetBlocks) xhrGetBlocks.abort();
+        xhrGetBlocks = $.ajax({
+            url: api_blockexplorer + '/json_rpc',
+            method: "POST",
+            data: JSON.stringify({
+                jsonrpc:"2.0",
+                id: "test",
+                method:"f_blocks_list_json",
+                params: {
+                    height: lastStats.network.height
+                }
+            }),
+            dataType: 'json',
+            cache: 'false',
+            success: function(data){
+                renderBlocks(data.result.blocks);
+            }
+        });
+    };
 
 
     function parseBlock(height, serializedBlock){
@@ -120,23 +146,6 @@
 
     function getBlockRowElement(block, jsonString){
 
-	    function formatLuck(difficulty, shares) {
-			    var percent = Math.round(shares / difficulty * 100);
-			    if(!percent) {
-				      return '<span class="luckGood">?</span>';
-			    }
-			    else if(percent <= 100) {
-				      return '<span class="luckGood">' + percent + '%</span>';
-			    }
-			    else {
-				      return '<span class="luckBad">' + percent + '%</span>';
-			    }
-	    }
-
-	    function formatBlockLink(hash){
-            return '<a target="_blank" href="' + getBlockchainUrl(hash) + '">' + hash + '</a>';
-        }
-
         var blockStatusClasses = {
             'pending': '',
             'unlocked': 'success',
@@ -147,16 +156,15 @@
         row.setAttribute('data-json', jsonString);
         row.setAttribute('data-height', block.height);
         row.setAttribute('id', 'blockRow' + block.height);
-        row.setAttribute('title', block.status);
-        row.className = blockStatusClasses[block.status];
-
+        row.setAttribute('title', block.hash);
+        row.className = 'pending';
+//        row.className = blockStatusClasses[block.status];
         var columns =
             '<td>' + block.height + '</td>' +
-            '<td>' + block.maturity + '</td>' +
-            '<td>' + block.difficulty + '</td>' +
+            '<td>' + block.cumul_size + '</td>' +
             '<td>' + formatBlockLink(block.hash) + '</td>' +
-            '<td>' + formatDate(block.time) + '</td>' +
-            '<td>' + formatLuck(block.difficulty, block.shares) + '</td>';
+            '<td>' + formatDate(block.timestamp) + '</td>' +
+            '<td>' + block.tx_count + '</td>';
 
         row.innerHTML = columns;
 
@@ -168,9 +176,9 @@
 
         var $blocksRows = $('#blocks_rows');
 
-        for (var i = 0; i < blocksResults.length; i += 2){
+        for (var i = 0; i < blocksResults.length; i ++){
 
-            var block = parseBlock(blocksResults[i + 1], blocksResults[i]);
+            var block = blocksResults[i];
 
             var blockJson = JSON.stringify(block);
 

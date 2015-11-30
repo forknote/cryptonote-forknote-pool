@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
 
-    <title>Cryptonote Mining Pool</title>
+    <title>Ethanolium pool - democats.org</title>
 
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -31,7 +31,7 @@
             overflow-y: scroll;
         }
         .container{
-            font-size: 1.2em;
+            font-size: 1.1em;
         }
         #loading{
             font-size: 2em;
@@ -147,9 +147,31 @@
         return el;
     }
 
+    function updateTextLinkable(elementId, text){
+        var el = document.getElementById(elementId);
+        if (el.innerHTML !== text){
+            el.innerHTML = text;
+        }
+        return el;
+    }
 
     var currentPage;
     var lastStats;
+
+
+    function getReadableHashRateString(hashrate){
+        var i = 0;
+        var byteUnits = [' H', ' KH', ' MH', ' GH', ' TH', ' PH' ];
+        while (hashrate > 1024){
+            hashrate = hashrate / 1024;
+            i++;
+        }
+        return hashrate.toFixed(2) + byteUnits[i];
+    }
+
+    function formatBlockLink(hash){
+        return '<a href="' + getBlockchainUrl(hash) + '">' + hash + '</a>';
+    }
 
     function getReadableCoins(coins, digits, withoutSymbol){
         var amount = (parseInt(coins || 0) / lastStats.config.coinUnits).toFixed(digits || lastStats.config.coinUnits.toString().length - 1);
@@ -162,7 +184,7 @@
     }
 
     function formatPaymentLink(hash){
-        return '<a target="_blank" href="' + getTransactionUrl(hash) + '">' + hash + '</a>';
+        return '<a href="' + getTransactionUrl(hash) + '">' + hash + '</a>';
     }
 
     function getPaymentRowElement(payment, jsonString){
@@ -283,6 +305,7 @@
             success: function (data) {
                 $('#loading').hide();
                 $('#page').show().html(data);
+                currentPage.init();
                 currentPage.update();
                 if (loadedCallback) loadedCallback();
             }
@@ -308,7 +331,16 @@
         });
     });
 
-
+    // Blockexplorer functions
+    urlParam = function(name){
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results==null){
+           return null;
+        }
+        else{
+           return results[1] || 0;
+        }
+    }
 </script>
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -320,12 +352,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand"><span id="coinName"></span> Mining Pool</a>
+            <a class="navbar-brand active" href="#"><span id="coinName"></span> Mining Pool</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
 
-                <li class="active"><a class="hot_link" data-page="home.html" href="#">
+                <li style="display:none;" class="active"><a class="hot_link" data-page="home.html" href="#">
                     <i class="fa fa-home"></i> Home
                 </a></li>
 
@@ -337,13 +369,27 @@
                     <i class="fa fa-cubes"></i> Pool Blocks
                 </a></li>
 
-                <li><a class="hot_link" data-page="payments.html" href="#payments">
+                <li style="display:none;"><a class="hot_link" data-page="payments.html" href="#payments">
                     <i class="fa fa-paper-plane-o"></i> Payments
                 </a></li>
+
+<!-- //-->
+                <li><a class="hot_link" data-page="blockchain_blocks.html" href="#blockchain_blocks">
+                    <i class="fa fa-cubes"></i> Blockchain
+                </a></li>
+
+                <li style="display:none;"><a class="hot_link" data-page="blockchain_block.html" href="#blockchain_block">
+                </a></li>
+
+                <li style="display:none;"><a class="hot_link" data-page="blockchain_transaction.html" href="#blockchain_transaction">
+                </a></li>
+<!-- //-->
 
                 <li><a class="hot_link" data-page="support.html" href="#support">
                     <i class="fa fa-comments"></i> Support
                 </a></li>
+
+
 
             </ul>
             <div id="stats_updated">Stats Updated &nbsp;<i class="fa fa-bolt"></i></div>
@@ -362,7 +408,7 @@
 
 <footer>
     <div class="text-muted">
-        Powered by <a target="_blank" href="https://github.com/forknote/cryptonote-forknote-pool"><i class="fa fa-github"></i> cryptonote-universal-pool (forknote edition)</a>
+        Powered by <a target="_blank" href="https://github.com/forknote/cryptonote-forknote-pool"><i class="fa fa-github"></i> cryptonote-forknote-pool</a>
         <span id="poolVersion"></span>
         open sourced under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL</a>
     </div>

@@ -310,6 +310,8 @@
             }
             if (xhrGetPayments) xhrGetPayments.abort();
         },
+        init: function(){
+        },
         update: function(){
 
             $('#networkLastBlockFound').timeago('update', new Date(lastStats.network.timestamp * 1000).toISOString());
@@ -346,7 +348,7 @@
                 $('#donations').hide()
             }
 
-            updateText('poolFee', floatToString(totalFee) + '%');
+            updateText('poolFee', /*floatToString(totalFee)*/ totalFee + '%');
 
 
             updateText('blockSolvedTime', getReadableTime(lastStats.network.difficulty / lastStats.pool.hashrate));
@@ -378,16 +380,6 @@
         return formatAmounts(amount,  units[units.length - 1][1]);
     }
 
-    function getReadableHashRateString(hashrate){
-        var i = 0;
-        var byteUnits = [' H', ' KH', ' MH', ' GH', ' TH', ' PH' ];
-        while (hashrate > 1024){
-            hashrate = hashrate / 1024;
-            i++;
-        }
-        return hashrate.toFixed(2) + byteUnits[i];
-    }
-
 
 
 
@@ -401,7 +393,7 @@
         var marketsData = [];
         for (var i = 0; i < cryptonatorWidget.length; i++){
             (function(i){
-            	cryptonatorWidget[i] = cryptonatorWidget[i].replace('{symbol}', lastStats.config.symbol.toLowerCase());
+                cryptonatorWidget[i] = cryptonatorWidget[i].replace('{symbol}', lastStats.config.symbol.toLowerCase());
                 xhrMarketGets[cryptonatorWidget[i]] = $.get('https://www.cryptonator.com/api/ticker/' + cryptonatorWidget[i], function(data){
                     if(data.error) {
                         return;
