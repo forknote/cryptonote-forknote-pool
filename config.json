@@ -71,7 +71,7 @@
             "checkThreshold": 30
         },
         "slushMining": {
-            "enabled": true,
+            "enabled": false,
             "weight": 120,
             "lastBlockCheckRate": 1
         }

@@ -237,7 +237,7 @@ Explanation for each field:
     /* Slush Mining is a reward calculation technique which disincentivizes pool hopping and rewards users to mine with the pool steadily: Values of each share decrease in time – younger shares are valued higher than older shares.
     More about it here: https://mining.bitcoin.cz/help/#!/manual/rewards */
     "slushMining": {
-        "enabled": true, //Enables slush mining. Recommended for pools catering to professional miners
+        "enabled": false, // 'true' enables slush mining. Recommended for pools catering to professional miners
         "weight": 120, //defines how fast value assigned to a share declines in time
         "lastBlockCheckRate": 1 //How often the pool checks for the timestamp of the last block. Lower numbers increase load for the Redis db, but make the share value more precise.
     }
