@@ -81,13 +81,15 @@ Comes with lightweight example front-end script which uses the pool's AJAX API.
 #### Pools Using This Software
 
 * http://democats.org
+* http://cryptonotepool.com/
 
 Usage
 ===
 
 #### Requirements
 * Coin daemon(s) (find the coin's repo and build latest version from source)
-* walletd (Bytecoin/Forknote v1.0.7+
+* simplewallet (Bytecoin/Forknote v1.1.11).  Do NOT use Forknote 2.0.0, since it's in alpha
+```
 * [Node.js](http://nodejs.org/) v0.10+ ([follow these installation instructions](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager))
 * [Redis](http://redis.io/) key-value store v2.6+ ([follow these instructions](http://redis.io/topics/quickstart))
 * libssl required for the node-multi-hashing module
@@ -236,6 +238,8 @@ Explanation for each field:
     },
     /* Slush Mining is a reward calculation technique which disincentivizes pool hopping and rewards users to mine with the pool steadily: Values of each share decrease in time – younger shares are valued higher than older shares.
     More about it here: https://mining.bitcoin.cz/help/#!/manual/rewards */
+    /* There is some bugs with enabled slushMining. Use with '"enabled": false' only. */
+
     "slushMining": {
         "enabled": false, // 'true' enables slush mining. Recommended for pools catering to professional miners
         "weight": 120, //defines how fast value assigned to a share declines in time
@@ -505,6 +509,7 @@ Credits
 * [wallet42](http://moneropool.com) - Funded development of payment denominating and min threshold feature
 * [Wolf0](https://bitcointalk.org/index.php?action=profile;u=80740) - Helped try to deobfuscate some of the daemon code for getting a bug fixed
 * [Tacotime](https://bitcointalk.org/index.php?action=profile;u=19270) - helping with figuring out certain problems and lead the bounty for this project's creation
+* [fancoder](https://github.com/fancoder/) - See his repo for the changes
 
 License
 -------
