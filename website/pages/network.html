@@ -10,7 +10,7 @@
     <table id="network-hash" class="table table-hover">
         <thead>
             <tr>
-                <th>Pool</th>
+                <th><span id="symbol"></span> Pools</th>
                 <th><i class="fa fa-tachometer"></i> Hashrate</th>
                 <th><i class="fa fa-group"></i> Miners</th>
                 <th><i class="fa fa-money"></i> Total Fee</th>
@@ -29,24 +29,25 @@
         init: function(){
         },
         update: function(){
+            updateText('symbol', lastStats.config.symbol);
         }
     };
 
-  const NETWORK_STAT_MAP = new Map(networkStat);
-  NETWORK_STAT_MAP.forEach((url, host, map) => {
-    $.getJSON(url + '/stats', (data, textStatus, jqXHR) => {
-      $('tbody').append('<tr><td>'+host+'</td><td>'+data.pool.hashrate+'&nbsp;H/s</td><td>'+data.pool.miners+'</td><td>'+calculateTotalFree(data)+'%</td></tr>');
+    const NETWORK_STAT_MAP = new Map(networkStat[lastStats.config.symbol.toLowerCase()]);
+    NETWORK_STAT_MAP.forEach((url, host, map) => {
+        $.getJSON(url + '/stats', (data, textStatus, jqXHR) => {
+            $('tbody').append('<tr><td>'+host+' ('+data.config.symbol+')</td><td>'+data.pool.hashrate+'&nbsp;H/s</td><td>'+data.pool.miners+'</td><td>'+calculateTotalFree(data)+'%</td></tr>');
+        });
     });
-  });
 
-  function calculateTotalFree(config) {
-    let totalFee = config.config.fee;
-      for (let property in config.config.donation) {
-        if (config.config.donation.hasOwnProperty(property)) {
-          totalFee += config.config.donation[property];
+    function calculateTotalFree(config) {
+        let totalFee = config.config.fee;
+        for (let property in config.config.donation) {
+            if (config.config.donation.hasOwnProperty(property)) {
+                totalFee += config.config.donation[property];
+            }
         }
-      }
-      return totalFee;
+        return totalFee;
     }
 
 </script>
