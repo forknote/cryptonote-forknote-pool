@@ -23,7 +23,7 @@ Comes with lightweight example front-end script which uses the pool's AJAX API.
 * [Setting up Testnet](#setting-up-testnet)
 * [JSON-RPC Commands from CLI](#json-rpc-commands-from-cli)
 * [Monitoring Your Pool](#monitoring-your-pool)
-* [Donations](#donations)
+* [Configuring Blockchain Explorer](#configuring-blockchain-explorer)
 * [Credits](#credits)
 * [License](#license)
 
@@ -496,11 +496,25 @@ curl 127.0.0.1:18081/json_rpc -d '{"method":"getblockheaderbyheight","params":{"
 * To keep your pool node script running in background, logging to file, and automatically restarting if it crashes - I suggest using [forever](https://github.com/nodejitsu/forever)
 
 
-Donations
----------
-* BTC: `1M5ihpjUwQ86XWHGNVGGd3LgpJajpPJ6uR`
-* BCN: `29odzDJVKk57mRB9h63KbSMLd5zgtL3225cE19c1RDQ4eQhj5KKNjcsLDSHaTQBBK4EmVA72ddkUoZjpeKUuNESi6gQ9F6p`
-* DSH: `D6WLtrV1SBWV8HWQzQv8uuYuGy3uwZ8ah5iT5HovSqhTKMauquoTsKP8RBJzVqVesX87poYWQgkGWB4NWHJ6Ravv93v4BaE`
+### Configuring Blockchain Explorer
+
+You need the latest stable version of Forknote for the blockchain explorer - [forknote releases](https://github.com/forknote/forknote/releases)
+* Add the following code to the coin's config file:
+
+```
+rpc-bind-ip=0.0.0.0
+enable-blockchain-indexes=1
+enable-cors=1
+```
+
+* Launch forknoted with the corresponding config file
+* Change the following line in the pool's frontend config.json:
+
+```
+var api_blockexplorer = "http://daemonhost.com:1118";
+```
+
+
 Credits
 ===
 
