@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
 
-    <title>Ethanolium pool - democats.org</title>
+    <title>Mining Pool</title>
 
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -314,6 +314,8 @@
 
     function updateIndex(){
         updateText('coinName', lastStats.config.coin);
+        let title = $(".navbar-brand").text();
+        $("title").text(title.charAt(0).toUpperCase() + title.slice(1));
         updateText('poolVersion', lastStats.config.version);
     }
 
