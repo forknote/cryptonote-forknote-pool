@@ -130,7 +130,7 @@
         },
         "wallet": {
             "checkInterval": 60,
-            "rpcMethod": "get_address_count"
+            "rpcMethod": "getbalance"
         }
     },
 
