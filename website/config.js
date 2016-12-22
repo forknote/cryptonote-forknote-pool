@@ -19,6 +19,10 @@ var transactionExplorer = "http://chainradar.com/{symbol}/transaction/{id}";
 var themeCss = "themes/default-theme.css";
 
 var networkStat = {
+    "bcn": [
+        ["bcn.mypool.name", "http://bcn.mypool.name:8084"],
+        ["democats.org", "http://pool.democats.org:7603"]
+    ],
     "bic": [
         ["bic.mypool.name", "http://bic.mypool.name:11886"],
         ["democats.org", "http://pool2.democats.org:7663"],
@@ -37,6 +41,19 @@ var networkStat = {
     "dsh": [
         ["dsh.mypool.name", "http://dsh.mypool.name:29084"],
         ["democats.org", "http://pool.democats.org:7613"]
+    ],
+    "fcn": [
+        ["fcn.mypool.name", "http://fcn.mypool.name:24084"]
+    ],
+    "krb": [
+        ["krb.mypool.name", "http://krb.mypool.name:32351"],
+        ["democats.org", "http://pool2.democats.org:7673"],
+        ["pool.karbowanec.com", "http://pool.karbowanec.com:8117"],
+        ["pool2.karbowanec.com", "http://pool2.karbowanec.com:8117"],
+        ["krb.cryptonotepool.com", "http://5.189.135.137:8618"]
+    ],
+    "qcn": [
+        ["qcn.mypool.name", "http://qcn.mypool.name:23084"]
     ],
     "xci": [
         ["xci.mypool.name", "http://xci.mypool.name:42004"],
