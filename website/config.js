@@ -27,7 +27,7 @@ var networkStat = {
         ["bic.mypool.name", "http://bic.mypool.name:11886"],
         ["democats.org", "http://pool2.democats.org:7663"],
         ["bikercoin.acidminer.org", "http://bikercoin.acidminer.org:8119"],
-        ["bikercoin.org", "http://bikercoin.org:8117"]
+        ["pool.bikercoin.org", "http://pool.bikercoin.org:8117"]
     ],
     "bip": [
         ["bip.mypool.name", "http://bip.mypool.name:18874"],
