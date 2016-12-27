@@ -27,12 +27,14 @@ var networkStat = {
         ["bic.mypool.name", "http://bic.mypool.name:11886"],
         ["democats.org", "http://pool2.democats.org:7663"],
         ["bikercoin.acidminer.org", "http://bikercoin.acidminer.org:8119"],
-        ["bikercoin.org", "http://bikercoin.org:8117"]
+        ["pool.bikercoin.org", "http://pool.bikercoin.org:8117"]
     ],
     "bip": [
         ["bip.mypool.name", "http://bip.mypool.name:18874"],
         ["democats.org", "http://pool.democats.org:7693"],
-        ["bip.cryptonotepool.com", "http://5.189.135.137:8121"]
+        ["bip.cryptonotepool.com", "http://5.189.135.137:8121"],
+        ["bip.ms-pool.net.ua", "http://bip.ms-pool.net.ua:8117"],
+        ["bip.crypto-coins.club", "http://5.157.83.120:8118"]
     ],
     "coal": [
         ["coal.mypool.name", "http://coal.mypool.name:7704"],
