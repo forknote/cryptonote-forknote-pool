@@ -52,6 +52,8 @@ var networkStat = {
         ["democats.org", "http://pool2.democats.org:7673"],
         ["pool.karbowanec.com", "http://pool.karbowanec.com:8117"],
         ["pool2.karbowanec.com", "http://pool2.karbowanec.com:8117"],
+        ["krb.tfoto.com.ua", "http://krb.tfoto.com.ua:8117"],
+        ["krb.crypto-coins.club", "http://krb.crypto-coins.club:8118"],
         ["krb.cryptonotepool.com", "http://5.189.135.137:8618"]
     ],
     "qcn": [
