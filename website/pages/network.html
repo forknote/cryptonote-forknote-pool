@@ -1,5 +1,5 @@
 <style>
-    #pools_rows > tr > td{
+    #network_rows > tr > td{
         vertical-align: middle;
         font-family: 'Inconsolata', monospace;
         font-size: 0.95em;
@@ -7,17 +7,18 @@
 </style>
 
 <div class="table-responsive">
-    <table id="network-hash" class="table table-hover">
+    <table class="table table-hover">
         <thead>
             <tr>
-                <th><span id="symbol"></span> Pools</th>
+                <th><span id="network-symbol"></span> Pools</th>
                 <th><i class="fa fa-bars"></i> Height</th>
                 <th><i class="fa fa-tachometer"></i> Hashrate</th>
                 <th><i class="fa fa-group"></i> Miners</th>
                 <th><i class="fa fa-money"></i> Total Fee</th>
+                <th><i class="fa fa-clock-o"></i> Last Block Found</th>
             </tr>
         </thead>
-        <tbody id="pools_rows">
+        <tbody id="network_rows">
         </tbody>
     </table>
 </div>
@@ -28,16 +29,17 @@
         destroy: function(){
         },
         init: function(){
+            updateText('network-symbol', lastStats.config.symbol);
         },
         update: function(){
-            updateText('symbol', lastStats.config.symbol);
             const NETWORK_STAT_MAP = new Map(networkStat[lastStats.config.symbol.toLowerCase()]);
             NETWORK_STAT_MAP.forEach((url, host, map) => {
                 $.getJSON(url + '/stats', (data, textStatus, jqXHR) => {
-                    updateText('height'+host, data.network.height);
-                    updateText('hashrate'+host, data.pool.hashrate);
-                    updateText('miners'+host, data.pool.miners);
-                    updateText('totalFree'+host, dcalculateTotalFree(data)+'%');
+                    updateText('height-'+host, data.network.height);
+                    updateText('hashrate-'+host, data.pool.hashrate);
+                    updateText('miners-'+host, data.pool.miners);
+                    updateText('totalFee-'+host, calculateTotalFee(data)+'%');
+                    updateText('lastBlockFound-'+host, new Date(parseInt(data.pool.lastBlockFound)).toLocaleString());
                 });
             });
         }
@@ -46,11 +48,18 @@
     const NETWORK_STAT_MAP = new Map(networkStat[lastStats.config.symbol.toLowerCase()]);
     NETWORK_STAT_MAP.forEach((url, host, map) => {
         $.getJSON(url + '/stats', (data, textStatus, jqXHR) => {
-            $('#pools_rows').append('<tr><td id=host'+host+'><a target=blank href=http://'+host+'>'+host+'</a> ('+data.config.symbol+')</td><td id=height'+host+'>'+data.network.height+'</td><td id=hashrate'+host+'>'+data.pool.hashrate+'&nbsp;H/s</td><td id=miners'+host+'>'+data.pool.miners+'</td><td id=totalFree'+host+'>'+calculateTotalFree(data)+'%</td></tr>');
+            $('#network_rows').append('<tr>' +
+                '<td id=host-'+host+'><a target=blank href=http://'+host+'>'+host+'</a> ('+data.config.symbol+')</td>' +
+                '<td id=height-'+host+'>'+data.network.height+'</td>' +
+                '<td id=hashrate-'+host+'>'+data.pool.hashrate+'&nbsp;H/s</td>' +
+                '<td id=miners-'+host+'>'+data.pool.miners+'</td>' +
+                '<td id=totalFee-'+host+'>'+calculateTotalFee(data)+'%</td>' +
+                '<td id=lastBlockFound-'+host+'>'+new Date(parseInt(data.pool.lastBlockFound)).toLocaleString()+'</td>' +
+            '</tr>');
         });
     });
 
-    function calculateTotalFree(config) {
+    function calculateTotalFee(config) {
         let totalFee = config.config.fee;
         for (let property in config.config.donation) {
             if (config.config.donation.hasOwnProperty(property)) {
