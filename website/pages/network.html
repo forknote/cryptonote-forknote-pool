@@ -36,7 +36,7 @@
             NETWORK_STAT_MAP.forEach((url, host, map) => {
                 $.getJSON(url + '/stats', (data, textStatus, jqXHR) => {
                     updateText('height-'+host, data.network.height);
-                    updateText('hashrate-'+host, data.pool.hashrate);
+                    updateText('hashrate-'+host, data.pool.hashrate+' H/s');
                     updateText('miners-'+host, data.pool.miners);
                     updateText('totalFee-'+host, calculateTotalFee(data)+'%');
                     updateText('lastBlockFound-'+host, new Date(parseInt(data.pool.lastBlockFound)).toLocaleString());

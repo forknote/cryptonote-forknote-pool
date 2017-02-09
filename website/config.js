@@ -65,6 +65,7 @@ var networkStat = {
         ["gorillapool.org", "http://gorillapool.org:8117"],
         ["xci.acidminer.org", "http://xci.acidminer.org:8117"],
         ["xci.cryptonotepool.com", "http://5.189.135.137:8119"],
-        ["xci.ms-pool.net.ua", "http://xci.ms-pool.net.ua:8117"]
+        ["xci.ms-pool.net.ua", "http://xci.ms-pool.net.ua:8117"],
+        ["xci.crypto-coins.club", "http://xci.crypto-coins.club:8118"]
     ]
 };
