@@ -314,7 +314,7 @@
 
     function updateIndex(){
         updateText('coinName', lastStats.config.coin);
-        let title = $(".navbar-brand").text();
+        var title = $(".navbar-brand").text();
         $("title").text(title.charAt(0).toUpperCase() + title.slice(1));
         updateText('poolVersion', lastStats.config.version);
     }
