@@ -23,6 +23,91 @@
     }
 </style>
 
+<div class="input-group">
+    <input class="form-control" placeholder="Search for block number / block hash / hash transaction" id="txt_search">
+    <span class="input-group-btn"><button class="btn btn-default" type="button" id="btn_search">
+        <span><i class="fa fa-search"></i> Search</span>
+    </button></span>
+</div>
+
+<script>
+
+    $('#btn_search').click(function(e) {
+
+        var text = document.getElementById('txt_search').value;
+        // window.location.href = getBlockchainUrl(text);
+
+        function GetSearchBlockbyHeight(){
+
+            var block, xhrGetSearchBlockbyHeight;
+            if (xhrGetSearchBlockbyHeight) xhrGetSearchBlockbyHeight.abort();
+
+            xhrGetSearchBlockbyHeight = $.ajax({
+                url: api_blockexplorer + '/json_rpc',
+                method: "POST",
+                data: JSON.stringify({
+                    jsonrpc:"2.0",
+                    id: "blockbyheight",
+                    method:"getblockheaderbyheight",
+                    params: {
+                        height: parseInt(text)
+                    }
+                }),
+                dataType: 'json',
+                cache: 'false',
+                success: function(data){
+                    block = data.result.block_header;
+                    window.location.href = getBlockchainUrl(block.hash);
+                }
+            });
+        }
+
+        function GetSearchBlock(){
+            var block, xhrGetSearchBlock;
+            if (xhrGetSearchBlock) xhrGetSearchBlock.abort();
+            xhrGetSearchBlock = $.ajax({
+                url: api_blockexplorer + '/json_rpc',
+                method: "POST",
+                data: JSON.stringify({
+                    jsonrpc:"2.0",
+                    id: "GetSearchBlock",
+                    method:"f_block_json",
+                    params: {
+                        hash: text // document.getElementById('txt_search').value // $('#txt_search').attr('value')
+                    }
+                }),
+                dataType: 'json',
+                cache: 'false',
+                success: function(data){
+                    if(data.result){
+                        block = data.result.block;
+                        // window.location.href = getBlockchainUrl(text);
+                        window.location.href = getBlockchainUrl(block.hash);
+                    } else if(data.error) {
+                        window.location.href = transactionExplorer.replace('{id}', text);
+                    }
+                }
+            });
+        }
+
+        if ( text.length < 64 ) {
+            GetSearchBlockbyHeight();
+        }
+        if ( text.length == 64 ) {
+            GetSearchBlock();
+        }
+
+        e.preventDefault();
+
+    });
+
+    $('#txt_search').keyup(function(e){
+        if(e.keyCode === 13)
+            $('#btn_search').click();
+    });
+
+</script>
+
 <div class="blocksStatHolder">
     <span class="bg-primary">Total Blocks: <span id="networkLastReward"></span></span>
     <span class="bg-primary">Hash Rate: <span id="networkHashrate"></span></span>
