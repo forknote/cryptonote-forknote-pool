@@ -525,15 +525,15 @@
                     renderPayments(data.payments);
 
                     $('.yourStats').show();
-					
-					xhrRenderUserCharts = $.ajax({
-						url: api + '/stats_address?address=' + address + '&longpoll=false',            
-						cache: false,
-						dataType: 'json',            
-						success: function(data) {
-							createUserCharts(data);                                
-						}
-					});
+
+                    xhrRenderUserCharts = $.ajax({
+                        url: api + '/stats_address?address=' + address + '&longpoll=false',            
+                        cache: false,
+                        dataType: 'json',            
+                        success: function(data) {
+                            createUserCharts(data);                                
+                        }
+                    });
 
                     docCookies.setItem('mining_address', address, Infinity);
 
