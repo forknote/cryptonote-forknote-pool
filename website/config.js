@@ -48,7 +48,8 @@ var networkStat = {
         ["pool2.karbowanec.com", "http://pool2.karbowanec.com:8117"],
         ["krb.sberex.com", "http://krb.sberex.com:7006"],
         ["krb.crypto-coins.club", "http://krb.crypto-coins.club:8118"],
-        ["krb.cryptonotepool.com", "http://5.189.135.137:8618"]
+        ["krb.cryptonotepool.com", "http://5.189.135.137:8618"],
+        ["krbpool.ml", "http://krbpool.ml:8117"]
     ],
     "qcn": [
         ["qcn.mypool.online", "http://qcn.mypool.online:23084"]
