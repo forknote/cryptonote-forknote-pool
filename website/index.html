@@ -169,6 +169,17 @@
         return hashrate.toFixed(2) + byteUnits[i];
     }
 
+    function getReadableDifficultyString(difficulty){
+	if difficulty < 1000 return difficulty;
+	var i = 0;
+        var byteUnits = [' ', ' k', ' M', ' G', ' T', ' P', ' E', ' Z', ' Y' ];
+        while (difficulty > 1000){
+            difficulty = difficulty / 1000;
+            i++;
+        }
+        return hashrate.toFixed(2) + byteUnits[i];
+    }
+
     function formatBlockLink(hash){
         return '<a href="' + getBlockchainUrl(hash) + '">' + hash + '</a>';
     }
