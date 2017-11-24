@@ -148,7 +148,7 @@
         update: function(){
             updateText('networkLastReward', lastStats.network.height.toString());
             updateText('networkHashrate', getReadableHashRateString(lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) + '/sec');
-            updateText('networkDifficulty', getReadableHashRateString(lastStats.network.difficulty));
+            updateText('networkDifficulty', getReadableDifficultyString(lastStats.network.difficulty));
             renderInitialBlocks();
         }
     };
