@@ -170,7 +170,7 @@
     }
 
     function getReadableDifficultyString(difficulty){
-	if difficulty < 1000 return difficulty.toString();
+	if (difficulty < 1000) return difficulty.toString();
 	var i = 0;
         var byteUnits = [' ', ' k', ' M', ' G', ' T', ' P', ' E', ' Z', ' Y' ];
         while (difficulty > 1000){
