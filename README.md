@@ -1,8 +1,8 @@
 cryptonote-forknote-pool
 ====================
 
-NOTICE:  If you have problems with orphan blocks, read this first:
-https://github.com/forknote/forknote-pool/issues/48
+**NOTICE:  If you have problems with orphan blocks, read this first:
+https://github.com/forknote/forknote-pool/issues/48**
 
 
 High performance Node.js (with native C addons) mining pool for Cryptonote based coins, created with the Forknote software such as Bytecoin, Dashcoin, etc..
