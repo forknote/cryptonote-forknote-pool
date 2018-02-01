@@ -1,17 +1,17 @@
 {
-    "coin": "dashcoin",
-    "symbol": "DSH",
-    "coinUnits": 1000000000000,
+    "coin": "BBSCoin",
+    "symbol": "BBS",
+    "coinUnits": 100000000,
     "coinDifficultyTarget": 120,
 
     "logging": {
         "files": {
-            "level": "info",
+            "level": "error",
             "directory": "logs",
             "flushInterval": 5
         },
         "console": {
-            "level": "info",
+            "level": "error",
             "colors": true
         }
     },
@@ -19,7 +19,7 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "D6WLtrV1SBWV8HWQzQv8uuYuGy3uwZ8ah5iT5HovSqhTKMauquoTsKP8RBJzVqVesX87poYWQgkGWB4NWHJ6Ravv93v4BaE",
+        "poolAddress": "fyT1F4XyZr17wDjDt2intpQLiJLKyCThYbbDzzr4zVkXa3J2K3in826Rxyc2XRbvwdQ5x9dQRtGhvVEfSxJTN3Ng1faQaasDR",
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "ports": [
@@ -79,20 +79,20 @@
 
     "payments": {
         "enabled": true,
-        "interval": 600,
+        "interval": 300,
         "maxAddresses": 50,
-        "mixin": 3,
+        "mixin": 1,
         "transferFee": 50000000,
-        "minPayment": 1000000000,
+        "minPayment": 100000000,
         "maxTransactionAmount": 0,
-        "denomination": 1000000000
+        "denomination": 100000000
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
         "depth": 10,
-        "poolFee": 2,
+        "poolFee": 0.5,
         "devDonation": 0.1,
         "coreDevDonation": 0.1,
         "extraFeaturesDevDonation":0.1
@@ -105,17 +105,17 @@
         "port": 8117,
         "blocks": 30,
         "payments": 30,
-        "password": "your_password"
+        "password": "password"
     },
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 42081
+        "port": 21204
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 8082
+        "port": 8070
     },
 
     "redis": {
@@ -130,7 +130,7 @@
         },
         "wallet": {
             "checkInterval": 60,
-            "rpcMethod": "getbalance"
+            "rpcMethod": "getBalance"
         }
     },
 
