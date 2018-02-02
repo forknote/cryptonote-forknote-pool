@@ -25,17 +25,17 @@
         "ports": [
             {
                 "port": 3333,
-                "difficulty": 100,
+                "difficulty": 10000,
                 "desc": "Low end hardware"
             },
             {
                 "port": 5555,
-                "difficulty": 2000,
+                "difficulty": 100000,
                 "desc": "Mid range hardware"
             },
             {
                 "port": 7777,
-                "difficulty": 10000,
+                "difficulty": 500000,
                 "desc": "High end hardware"
             },
             {
@@ -80,7 +80,7 @@
     "payments": {
         "enabled": true,
         "interval": 100,
-        "maxAddresses": 5,
+        "maxAddresses": 1,
         "mixin": 1,
         "transferFee": 50000000,
         "minPayment": 100000000,
