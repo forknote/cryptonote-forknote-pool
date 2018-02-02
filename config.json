@@ -6,12 +6,12 @@
 
     "logging": {
         "files": {
-            "level": "error",
+            "level": "info",
             "directory": "logs",
             "flushInterval": 5
         },
         "console": {
-            "level": "error",
+            "level": "info",
             "colors": true
         }
     },
@@ -91,7 +91,7 @@
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 10,
+        "depth": 60,
         "poolFee": 0.5,
         "devDonation": 0.1,
         "coreDevDonation": 0.1,
