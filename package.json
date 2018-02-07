@@ -8,14 +8,15 @@
         "url": "https://github.com/forknote/forknote-pool"
     },
     "dependencies": {
-        "bignum": "*",
         "async": "1",
-        "redis": "*",
-        "cli-color": "*",
-        "dateformat": "*",
         "base58-native": "*",
-        "multi-hashing": "git@github.com:randing89/node-multi-hashing.git",
-        "cryptonote-util": "git@github.com:randing89/node-cryptonote-util.git"
+        "bignum": "*",
+        "cli-color": "*",
+        "cryptonote-util": "git@github.com:bbscoin/node-cryptonote-util.git",
+        "dateformat": "*",
+        "multi-hashing": "git@github.com:bbscoin/node-multi-hashing.git",
+        "node": "^9.5.0",
+        "redis": "*"
     },
     "engines": {
         "node": ">=0.10"

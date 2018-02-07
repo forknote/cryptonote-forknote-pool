@@ -94,7 +94,7 @@ Usage
 * Coin daemon(s) (find the coin's repo and build latest version from source)
 * simplewallet (Bytecoin/Forknote v1.1.11).  Do NOT use Forknote 2.0.0, since it's in alpha
 ```
-* [Node.js](http://nodejs.org/) v0.10+ ([follow these installation instructions](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager))
+* [Node.js](http://nodejs.org/) v9.5.0+ ([follow these installation instructions](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager))
 * [Redis](http://redis.io/) key-value store v2.6+ ([follow these instructions](http://redis.io/topics/quickstart))
 * libssl required for the node-multi-hashing module
   * For Ubuntu: `sudo apt-get install libssl-dev`
