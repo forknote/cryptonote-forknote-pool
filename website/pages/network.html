@@ -46,7 +46,7 @@
     };
 
     const NETWORK_STAT_MAP = new Map(networkStat[lastStats.config.symbol.toLowerCase()]);
-    NETWORK_STAT_MAP.forEach((url, host, map) => {
+    NETWORK_STAT_MAP.forEach((url, host) => {
         $.getJSON(url + '/stats', (data, textStatus, jqXHR) => {
             $('#network_rows').append('<tr>' +
                 '<td id=host-'+host+'><a target=blank href=http://'+host+'>'+host+'</a> ('+data.config.symbol+')</td>' +

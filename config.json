@@ -6,12 +6,12 @@
 
     "logging": {
         "files": {
-            "level": "info",
+            "level": "warn",
             "directory": "logs",
             "flushInterval": 5
         },
         "console": {
-            "level": "info",
+            "level": "warn",
             "colors": true
         }
     },
@@ -79,18 +79,18 @@
 
     "payments": {
         "enabled": true,
-        "interval": 100,
-        "maxAddresses": 1,
-        "mixin": 1,
+        "interval": 130,
+        "maxAddresses": 25,
+        "mixin": 0,
         "transferFee": 50000000,
-        "minPayment": 100000000,
-        "maxTransactionAmount": 0,
+        "minPayment": 10000000000,
+        "maxTransactionAmount": 100000000000000,
         "denomination": 100000000
     },
 
     "blockUnlocker": {
         "enabled": true,
-        "interval": 30,
+        "interval": 15,
         "depth": 60,
         "poolFee": 0.5,
         "devDonation": 0.1,

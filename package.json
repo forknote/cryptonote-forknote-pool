@@ -14,8 +14,8 @@
         "cli-color": "*",
         "dateformat": "*",
         "base58-native": "*",
-        "multi-hashing": "git://github.com/fancoder/node-multi-hashing.git",
-        "cryptonote-util": "git://github.com/forknote/node-cryptonote-util.git"
+        "multi-hashing": "git@github.com:randing89/node-multi-hashing.git",
+        "cryptonote-util": "git@github.com:randing89/node-cryptonote-util.git"
     },
     "engines": {
         "node": ">=0.10"

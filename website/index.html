@@ -18,7 +18,7 @@
 
     <link href="//fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
 
-    <script src="config.js"></script>
+    <script src="config.js?v=2"></script>
     <script src="custom.js"></script>
 
     <style>
@@ -141,7 +141,7 @@
 
     function updateText(elementId, text){
         var el = document.getElementById(elementId);
-        if (el.textContent !== text){
+        if (el && el.textContent !== text){
             el.textContent = text;
         }
         return el;
@@ -313,9 +313,7 @@
     }
 
     function updateIndex(){
-        updateText('coinName', lastStats.config.coin);
-        var title = $(".navbar-brand").text();
-        $("title").text(title.charAt(0).toUpperCase() + title.slice(1));
+        $("title").text(lastStats.config.coin + ' Mining Pool');
         updateText('poolVersion', lastStats.config.version);
     }
 
@@ -352,7 +350,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand active" href="#"><span id="coinName"></span> Mining Pool</a>
+            <a class="navbar-brand active " href="/"><span style="font-size: 25px; font-weight: bold">Pool</span>.bbscoin.xyz</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav" data-toggle="collapse" data-target=".navbar-collapse">
