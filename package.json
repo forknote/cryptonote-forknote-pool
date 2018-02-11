@@ -12,9 +12,9 @@
         "base58-native": "*",
         "bignum": "*",
         "cli-color": "*",
-        "cryptonote-util": "git@github.com:bbscoin/node-cryptonote-util.git",
+        "cryptonote-util": "git://github.com/bbscoin/node-cryptonote-util.git",
         "dateformat": "*",
-        "multi-hashing": "git@github.com:bbscoin/node-multi-hashing.git",
+        "multi-hashing": "git://github.com/bbscoin/node-multi-hashing.git",
         "node": "^9.5.0",
         "redis": "*"
     },
