@@ -1,6 +1,6 @@
 {
-    "coin": "dashcoin",
-    "symbol": "DSH",
+    "coin": "Karbo",
+    "symbol": "KRB",
     "coinUnits": 1000000000000,
     "coinDifficultyTarget": 120,
 
@@ -25,25 +25,48 @@
         "ports": [
             {
                 "port": 3333,
-                "difficulty": 100,
-                "desc": "Low end hardware"
+                "difficulty": 1000,
+                "desc": "CPU - (30-40 H/s)"
+            },
+            {
+                "port": 4444,
+                "difficulty": 2048,
+                "desc": "CPU (50-200 H/s)"
             },
             {
                 "port": 5555,
-                "difficulty": 2000,
-                "desc": "Mid range hardware"
+                "difficulty": 6144,
+                "desc": "CPU/GPU (>300 H/s)"
+            },
+            {
+                "port": 6666,
+                "difficulty": 20480,
+                "desc": "GPU (500-1500 H/s)"
             },
             {
                 "port": 7777,
-                "difficulty": 10000,
-                "desc": "High end hardware"
+                "difficulty": 131072,
+                "desc": "GPU Farm (2-10 KH/s)"
             },
             {
                 "port": 8888,
-                "difficulty": 10000,
-                "desc": "Hidden port",
-                "hidden": true
+                "difficulty": 524288,
+                "desc": "Nicehash (10+ kh/s)",
+                "hidden": false
+            },
+            {
+                "port": 443,
+                "difficulty": 2048,
+                "desc": "For firewalled users",
+                "hidden": false
+            },
+            {
+                "port": 8080,
+                "difficulty": 2048,
+                "desc": "For firewalled users",
+                "hidden": false
             }
+
         ],
         "varDiff": {
             "minDiff": 100,
@@ -83,7 +106,7 @@
         "maxAddresses": 50,
         "mixin": 3,
         "transferFee": 50000000,
-        "minPayment": 1000000000,
+        "minPayment": 100000000000,
         "maxTransactionAmount": 0,
         "denomination": 1000000000
     },
@@ -110,12 +133,12 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 42081
+        "port": 32348
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 8082
+        "port": 8070
     },
 
     "redis": {
@@ -138,40 +161,40 @@
         "pool": {
             "hashrate": {
                 "enabled": true,
-                "updateInterval": 60,
-                "stepInterval": 1800,
+                "updateInterval": 10,
+                "stepInterval": 300,
                 "maximumPeriod": 86400
             },
             "workers": {
                 "enabled": true,
-                "updateInterval": 60,
-                "stepInterval": 1800,
+                "updateInterval": 10,
+                "stepInterval": 300,
                 "maximumPeriod": 86400
             },
             "difficulty": {
                 "enabled": true,
-                "updateInterval": 1800,
-                "stepInterval": 10800,
+                "updateInterval": 10,
+                "stepInterval": 300,
                 "maximumPeriod": 604800
             },
             "price": {
                 "enabled": true,
-                "updateInterval": 1800,
-                "stepInterval": 10800,
+                "updateInterval": 180,
+                "stepInterval": 15000,
                 "maximumPeriod": 604800
             },
             "profit": {
                 "enabled": true,
-                "updateInterval": 1800,
-                "stepInterval": 10800,
+                "updateInterval": 10,
+                "stepInterval": 300,
                 "maximumPeriod": 604800
             }
         },
         "user": {
             "hashrate": {
                 "enabled": true,
-                "updateInterval": 180,
-                "stepInterval": 1800,
+                "updateInterval": 10,
+                "stepInterval": 300,
                 "maximumPeriod": 86400
             },
             "payments": {
