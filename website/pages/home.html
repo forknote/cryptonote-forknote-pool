@@ -84,30 +84,33 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4 stats">
+    <div class="col-md-3 stats">
         <h3>Network</h3>
-        <div><i class="fa fa-tachometer"></i> Hash Rate: <span id="networkHashrate"></span></div>
-        <div><i class="fa fa-clock-o"></i> Block Found: <span id="networkLastBlockFound"></span></div>
-        <div><i class="fa fa-unlock-alt"></i> Difficulty: <span id="networkDifficulty"></span></div>
-        <div><i class="fa fa-bars"></i> Blockchain Height: <span id="blockchainHeight"></span></div>
-        <div><i class="fa fa-money"></i> Last Reward: <span id="networkLastReward"></span></div>
-        <div><i class="fa fa-paw"></i> Last Hash: <a id="lastHash" target="_blank"></a></div>
+        <div>Hash Rate: <span id="networkHashrate"></span></div>
+        <div>Block Found: <span id="networkLastBlockFound"></span></div>
+        <div>Difficulty: <span id="networkDifficulty"></span></div>
+        <div>Blockchain Height: <span id="blockchainHeight"></span></div>
+        <div>Last Reward: <span id="networkLastReward"></span></div>
+        <div>Last Hash: <a id="lastHash" target="_blank"></a></div>
     </div>
 
-    <div class="col-md-4 stats">
+    <div class="col-md-3 stats">
         <h3>Our Pool</h3>
-        <div><i class="fa fa-tachometer"></i> Hash Rate: <span id="poolHashrate"></span></div>
-        <div><i class="fa fa-clock-o"></i> Block Found: <span id="poolLastBlockFound"></span></div>
-        <div><i class="fa fa-users"></i> Connected Miners: <span id="poolMiners"></span></div>
-        <div id="donations"><i class="fa fa-gift"></i> Donations: <span id="poolDonations"></span></div>
-        <div><i class="fa fa-money"></i> Total Pool Fee: <span id="poolFee"></span></div>
-        <div><i class="fa fa-history"></i> Block Found Every: <span id="blockSolvedTime"></span> (est.)</div>
+        <div>Hash Rate: <span id="poolHashrate"></span></div>
+        <div>Block Found: <span id="poolLastBlockFound"></span></div>
+        <div>Connected Miners: <span id="poolMiners"></span></div>
+        <div id="donations">Donations: <span id="poolDonations"></span></div>
+        <div>Total Pool Fee: <span id="poolFee"></span></div>
+        <div>Block Found Every: <span id="blockSolvedTime"></span> (est.)</div>
     </div>
 
-    <div class="col-md-4 stats marketRate">
+    <div id="ticker" class="col-md-6 stats hidden">
         <h3 id="marketHeader">Market</h3>
-        <div class="marketFooter">Updated: <span id="marketLastUpdated"></span></div>
-        <div class="marketFooter">Powered by <a href="https://www.cryptonator.com/">Cryptonator</a></div>
+        <div>Price (Bitcoin): <span id="btcPrice"></span>Satoshi</div>
+        <div>Price (10000 BBS): <span class="price" id="usdPrice"></span>USD <span class="price" id="cnyPrice"></span>CNY <span class="price" id="rubPrice"></span>RUB <span class="price" id="krwPrice"></span>KRW <span class="price" id="jpyPrice"></span>JPY</div>
+        <div>24 Hours Volume: <span id="volume"></span>BTC (<span class="price" id="usdVolume"></span>USD)</div>
+        <div class="marketFooter">Updated: <span id="lastUpdated"></span></div>
+        <div class="marketFooter">Powered by <a href="https://crex24.com/exchange/BBS-BTC">Crex24.com</a></div>
     </div>
 </div>
 
@@ -155,13 +158,13 @@
             type: 'line',
             width: '100%',
             height: '75',
-            lineColor: '#03a678',
-            fillColor: 'rgba(3, 166, 120, .3)',
+            lineColor: '#57B8FF',
+            fillColor: '#94D1FF',
             spotColor: null,
             minSpotColor: null,
             maxSpotColor: null,
-            highlightLineColor: '#236d26',
-            spotRadius: 3,        
+            highlightLineColor: '#57B8FF',
+            spotRadius: 2,        
             chartRangeMin: 0,
             drawNormalOnTop: false,
             tooltipFormat: '<b>{{y}}</b>, {{offset:names}}'
@@ -172,13 +175,13 @@
 		        type: 'line',
 		        width: '100%',
 		        height: '180',
-		        lineColor: '#03a678',
-		        fillColor: 'rgba(3, 166, 120, .3)',
+		        lineColor: '#57B8FF',
+		        fillColor: '#94D1FF',
 		        spotColor: null,
 		        minSpotColor: null,
 		        maxSpotColor: null,
-		        highlightLineColor: '#236d26',
-		        spotRadius: 3,
+		        highlightLineColor: '#57B8FF',
+		        spotRadius: 2,
 		        drawNormalOnTop: false,
 		        chartRangeMin: 0,
 		        tooltipFormat: '<b>{{y}}</b>, {{offset:names}}'
@@ -187,13 +190,13 @@
 		        type: 'line',
 		        width: '100%',
 		        height: '180',
-		        lineColor: '#03a678',
-		        fillColor: 'rgba(3, 166, 120, .3)',
+		        lineColor: '#57B8FF',
+		        fillColor: '#94D1FF',
 		        spotColor: null,
 		        minSpotColor: null,
 		        maxSpotColor: null,
-		        highlightLineColor: '#236d26',
-		        spotRadius: 3,
+		        highlightLineColor: '#57B8FF',
+		        spotRadius: 2,
 		        drawNormalOnTop: false,
 		        chartRangeMin: 0,
 		        tooltipFormat: '<b>{{y}}</b>, {{offset:names}}'
@@ -381,47 +384,35 @@
     }
 
 
-
-
     /* Market data polling */
 
-    var intervalMarketPolling = setInterval(updateMarkets, 300000); //poll market data every 5 minutes
+    var intervalMarketPolling = setInterval(updateMarkets, 30000); //poll market data every 5 minutes
     var xhrMarketGets = {};
     updateMarkets();
     function updateMarkets(){
-        var completedFetches = 0;
-        var marketsData = [];
-        for (var i = 0; i < cryptonatorWidget.length; i++){
-            (function(i){
-                cryptonatorWidget[i] = cryptonatorWidget[i].replace('{symbol}', lastStats.config.symbol.toLowerCase());
-                xhrMarketGets[cryptonatorWidget[i]] = $.get('https://api.cryptonator.com/api/ticker/' + cryptonatorWidget[i], function(data){
-                    if(data.error) {
-                        return;
-                    }
-                    $('.marketRate').show();
-
-                    marketsData[i] = data;
-                    completedFetches++;
-                    if (completedFetches !== cryptonatorWidget.length) return;
-
-                    var $marketHeader = $('#marketHeader');
-                    $('.marketTicker').remove();
-                    for (var f = marketsData.length - 1; f >= 0 ; f--){
-                        var price = parseFloat(marketsData[f].ticker.price);
-
-                        if (price > 1) price = Math.round(price * 100) / 100;
-                        else price = marketsData[f].ticker.price;
-
-                        $marketHeader.after('<div class="marketTicker">' + marketsData[f].ticker.base + ': <span>' + price + ' ' + marketsData[f].ticker.target + '</span></div>');
-                    }
-                    $('#marketLastUpdated').timeago('update', new Date(marketsData[0].timestamp * 1000).toISOString());
-                }, 'json');
-            })(i);
-        }
+        $.getJSON('https://api.coinbase.com/v2/exchange-rates?currency=BTC', function(btc) {
+            var usd = btc.data.rates['USD'];
+            var cny = btc.data.rates['CNY'];
+            var rub = btc.data.rates['RUB'];
+            var krw = btc.data.rates['KRW'];
+            var jpy = btc.data.rates['JPY'];
+                
+            $.getJSON('http://pool.bbscoin.xyz/crex24', function(data) {
+                var bbs = data.Tickers[0];
+                $('#btcPrice').text((bbs['Last'] * 100000000).toFixed(1));
+                $('#usdPrice').text((bbs['Last'] * usd * 10000).toFixed(2));
+                $('#cnyPrice').text((bbs['Last'] * cny * 10000).toFixed(2));
+                $('#rubPrice').text((bbs['Last'] * rub * 10000).toFixed(2));
+                $('#krwPrice').text((bbs['Last'] * krw * 10000).toFixed(0));
+                $('#jpyPrice').text((bbs['Last'] * jpy * 10000).toFixed(0));
+                
+                $('#volume').text(bbs['BaseVolume']);
+                $('#usdVolume').text((bbs['BaseVolume'] * usd).toFixed(2));
+                $('#lastUpdated').text(new Date());
+                $('#ticker').removeClass('hidden');
+            });
+        });
     }
-
-
-
 
 
     /* Hash Profitability Calculator */
@@ -447,10 +438,6 @@
         catch(e){ }
         updateText('calcHashAmount', '');
     }
-
-
-
-
 
     /* Stats by mining address lookup */
 

@@ -23,6 +23,9 @@ var networkStat = {
         ['pool.bbscoin.xyz', 'http://pool.bbscoin.xyz:8117'],
         ['bbs.pool.pilbeams.net', 'http://bbs.pool.pilbeams.net:8111'],
         ['bbs.pool.ahka.net', 'http://bbs.pool.ahka.net:8115'],
-        ['bbscoinpool.club', 'http://us.bbscoinpool.club:8117'],
+	['bbs.dreampool.info', 'https://bbs.dreampool.info/api/'],
+	['cryptoknight.cc/bbs', 'http://78.46.85.142:2778'],
+	['bbs.gonspool.com', 'http://bbs.gonspool.com:8117'],
+	['pool-marine.ga/bbs', 'http://pool-marine.ga:8028']
     ]
 };
