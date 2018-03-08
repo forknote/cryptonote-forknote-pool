@@ -40,9 +40,8 @@
             },
             {
                 "port": 8888,
-                "difficulty": 10000,
-                "desc": "Hidden port",
-                "hidden": true
+                "difficulty": 5000000,
+                "desc": "Professionals and NiceHash"
             }
         ],
         "varDiff": {
@@ -65,7 +64,7 @@
             "penalty": 30
         },
         "banning": {
-            "enabled": true,
+            "enabled": false,
             "time": 600,
             "invalidPercent": 25,
             "checkThreshold": 30
@@ -79,18 +78,18 @@
 
     "payments": {
         "enabled": true,
-        "interval": 150,
-        "maxAddresses": 20,
-        "mixin": 2,
-        "transferFee": 50000000,
-        "minPayment": 10000000000,
+        "interval": 900,
+        "maxAddresses": 10,
+        "mixin": 0,
+        "transferFee": 500000000,
+        "minPayment": 50000000000,
         "maxTransactionAmount": 100000000000000,
         "denomination": 100000000
     },
 
     "blockUnlocker": {
         "enabled": true,
-        "interval": 15,
+        "interval": 30,
         "depth": 60,
         "poolFee": 0.5,
         "devDonation": 0.1,
