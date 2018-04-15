@@ -12,7 +12,7 @@
         "base58-native": "*",
         "bignum": "*",
         "cli-color": "*",
-        "cryptonote-util": "git://github.com/bbscoin/node-cryptonote-util.git#v1.0.0",
+        "cryptonote-util": "git://github.com/bbscoin/node-cryptonote-util.git#v1.0.1",
         "dateformat": "*",
         "multi-hashing": "git://github.com/bbscoin/node-multi-hashing.git#v3.0.0",
         "node": "^9.5.0",
