@@ -26,6 +26,8 @@ var networkStat = {
 	['bbs.dreampool.info', 'https://bbs.dreampool.info/api/'],
 	['cryptoknight.cc/bbs', 'http://78.46.85.142:2778'],
 	['bbs.gonspool.com', 'http://bbs.gonspool.com:8117'],
-	['pool-marine.ga/bbs', 'http://pool-marine.ga:8028']
+	['pool-marine.ga/bbs', 'http://pool-marine.ga:8028'],
+	['bbs.howpool.com', 'http://bbs.howpool.com:8117'],
+	['bbscoin-pool.org', 'http://bbscoin-pool.org:8107'],
     ]
 };
