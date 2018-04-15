@@ -154,13 +154,13 @@
                 "maximumPeriod": 604800
             },
             "price": {
-                "enabled": true,
+                "enabled": false,
                 "updateInterval": 1800,
                 "stepInterval": 10800,
                 "maximumPeriod": 604800
             },
             "profit": {
-                "enabled": true,
+                "enabled": false,
                 "updateInterval": 1800,
                 "stepInterval": 10800,
                 "maximumPeriod": 604800
