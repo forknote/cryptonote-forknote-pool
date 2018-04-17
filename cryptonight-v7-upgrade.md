@@ -41,6 +41,8 @@ var cnUtil = require('cryptonote-util-bbscoin');
 ```
 
 ### Run NPM install to install the new dependencies
+`cryptonote-util-bbscoin` and `multi-hashing-bbscoin` only work with node v9.5.0+
+Please update your node.js version before running npm install.
 ```
 npm install
 ```
