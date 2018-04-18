@@ -1,8 +1,8 @@
-cryptonote-forknote-pool
-====================
+# bbscoin-pool based on cryptonote-forknote-pool
 
-**NOTICE:  If you have problems with orphan blocks, read this first:
-https://github.com/forknote/forknote-pool/issues/48**
+# ⚠️BBS will fork on Sat, 28 Apr 2018 (GMT) at block 72500 ⚠️ 
+## The PoW algorithm will be changed to Cryptonight v7.
+## Please follow the instructions here to update the pool source code: https://github.com/bbscoin/bbscoin-pool/blob/master/cryptonight-v7-upgrade.md
 
 
 High performance Node.js (with native C addons) mining pool for Cryptonote based coins, created with the Forknote software such as Bytecoin, Dashcoin, etc..
