@@ -62,16 +62,12 @@
     </div>
 </div>
 
-<hr>
-
-<h3>For <i class="fa fa-windows"></i> Windows users new to mining</h3>
+<!-- <h3>For <i class="fa fa-windows"></i> Windows users new to mining</h3>
 <p class="getting_started_windows">
     You can <a class="btn btn-default btn-sm" target="_blank" id="easyminer_link"><i class="fa fa-download"></i> Download</a>
     and run <a target="_blank" href="https://github.com/zone117x/cryptonote-easy-miner">cryptonote-easy-miner</a> <i class="fa fa-github"></i>
     which will automatically generate your wallet address and run CPUMiner with the proper parameters.
-</p>
-
-<hr>
+</p> -->
 
 <h3>Mining Apps</h3>
 <div class="yourStats table-responsive">
@@ -87,13 +83,13 @@
         </thead>
         <tbody id="mining_apps">
         <tr>
-            <td class="miningAppTitle">XMR-Stak (by fireice_uk)</td>
+            <td class="miningAppTitle">XMR-Stak</td>
             <td>CPU / GPU</td>
             <td><a target="_blank" href="https://github.com/fireice-uk/xmr-stak/releases">Github</a></td>
             <td><a target="_blank" href="https://www.reddit.com/r/Monero/comments/5lsfgt/xmrstakcpu_high_performance_open_source_miner/">Reddit</a></td>
             <td><a target="_blank" href="https://github.com/fireice-uk/xmr-stak">Github</a></td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td colspan="5">
                 <span>Example:</span>
                 Please <code>xmr-stak</code> to start. When choosing what to mine, please select monero as we use the same technology.
@@ -176,7 +172,7 @@
                 <span>Example:</span>
                 <code>xmrMiner_0.2.0.exe --url=stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleAddress">YOUR_WALLET_ADDRESS</span> -p x --bfactor=8 --bsleep=100</code>
             </td>
-        </tr>
+        </tr> -->
         </tbody>
     </table>
 </div>
@@ -213,7 +209,7 @@
         }
     };
 
-    document.getElementById('easyminer_link').setAttribute('href', easyminerDownload);
+    // document.getElementById('easyminer_link').setAttribute('href', easyminerDownload);
     document.getElementById('miningPoolHost').textContent = poolHost;
 
     var lastPortsJson = '';
