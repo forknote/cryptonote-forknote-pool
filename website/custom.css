@@ -78,6 +78,9 @@ h3,
   font-weight: 500;
   padding: 0 2px;
 }
+.dropdown.open > a {
+  background-color: #0FACF3 !important;
+}
 #stats_updated {
   color: #DC493A;
 }
