@@ -426,3 +426,6 @@ b {
   margin-bottom: 10px;
 }
 
+#ticker td {
+  padding-right: 20px;
+}
