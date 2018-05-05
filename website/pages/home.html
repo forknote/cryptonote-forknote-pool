@@ -96,7 +96,7 @@
                 <tr>
                     <td>Exchange</td>
                     <td>Pair</td>
-                    <td>Volume</td>
+                    <!-- <td>Volume</td> -->
                     <td>Volume</td>
                     <td>USD</td>
                 </tr>
@@ -105,21 +105,21 @@
                 <tr class="crex24 hidden">
                     <td>crex24.com</td>
                     <td><a target="_blank" href="https://crex24.com/exchange/BBS-BTC">BTC / BBS</a></td>
-                    <td><span id="volume_bbs_crex24"></span></td>
+                    <!-- <td><span id="volume_bbs_crex24"></span></td> -->
                     <td><span id="volume_btc_crex24"></span></td>
                     <td><span id="volume_usd_crex24"></span></td>
                 </tr>
                 <tr class="alex-xmr hidden">
                     <td>altex.exchange</td>
                     <td><a target="_blank" href="https://altex.exchange/markets&amp;pair=XMR_BBS">XMR / BBS</a></td>
-                    <td><span id="volume_xmrbbs_altex"></span></td>
+                    <!-- <td><span id="volume_xmrbbs_altex"></span></td> -->
                     <td><span id="volume_xmr_altex"></span></td>
                     <td><span id="volume_xmrusd_altex"></span></td>
                 </tr>
                 <tr class="alex-btc hidden">
                     <td>altex.exchange</td>
                     <td><a target="_blank" href="https://altex.exchange/markets&amp;pair=BTC_BBS">BTC / BBS</a></td>
-                    <td><span id="volume_btcbbs_altex"></span></td>
+                    <!-- <td><span id="volume_btcbbs_altex"></span></td> -->
                     <td><span id="volume_btc_altex"></span></td>
                     <td><span id="volume_btcusd_altex"></span></td>
                 </tr>
@@ -427,9 +427,9 @@
     var xhrMarketGets = {};
     updateMarkets();
     function updateMarkets(){
-        $.getJSON('//api.crex24.com/CryptoExchangeService/BotPublic/ReturnTicker?request=[NamePairs=BTC_BBS]', function(data) {
+        $.getJSON('http://pool.bbscoin.xyz/crex24', function(data) {
             var bbs = data.Tickers[0];
-            $('#volume_bbs_crex24').text(parseInt(bbs['QuoteVolume']).toLocaleString() + ' BBS');
+            // $('#volume_bbs_crex24').text(parseInt(bbs['QuoteVolume']).toLocaleString() + ' BBS');
             $('#volume_btc_crex24').text(bbs['VolumeInBtc'] + ' BTC');
             $('#volume_usd_crex24').text('$' + parseFloat(bbs['VolumeInUsd']).toFixed(2))
             $('.crex24').removeClass('hidden');
@@ -443,12 +443,12 @@
             $.getJSON('https://api.altex.exchange/v1/ticker', function(data) {
                 var xmr = data.data.XMR_BBS;
                 var btc = data.data.BTC_BBS;
-                $('#volume_xmrbbs_altex').text(parseInt(xmr.BBS).toLocaleString() + ' BBS');
+                // $('#volume_xmrbbs_altex').text(parseInt(xmr.BBS).toLocaleString() + ' BBS');
                 $('#volume_xmr_altex').text(xmr.XMR + ' XMR');
                 $('#volume_xmrusd_altex').text('$' + parseFloat(xmr.XMR * xmrUsd).toFixed(2))
                 $('.alex-xmr').removeClass('hidden');
 
-                $('#volume_btcbbs_altex').text(parseInt(btc.BBS).toLocaleString() + ' BBS');
+                // $('#volume_btcbbs_altex').text(parseInt(btc.BBS).toLocaleString() + ' BBS');
                 $('#volume_btc_altex').text(btc.BTC + ' BTC');
                 $('#volume_btcusd_altex').text('$' + parseFloat(btc.BTC * btcUsd).toFixed(2))
                 $('.alex-btc').removeClass('hidden');
