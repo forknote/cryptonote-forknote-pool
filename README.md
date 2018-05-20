@@ -124,7 +124,7 @@ Clone the repository and run `npm update` for all the dependencies to be install
 ```bash
 git clone https://github.com/forknote/cryptonote-universal-pool.git pool
 cd pool
-npm update
+npm install
 ```
 
 #### 2) Configuration
