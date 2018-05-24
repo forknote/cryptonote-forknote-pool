@@ -102,6 +102,12 @@
                 </tr>
             </thead>
             <tbody>
+                <tr class="tradeogre hidden">
+                    <td>TradeOgre</td>
+                    <td><a target="_blank" href="https://tradeogre.com/exchange/BTC-BBS">BTC / BBS</a></td>
+                    <td><span id="volume_btc_tradeogre"></span></td>
+                    <td><span id="volume_usd_tradeogre"></span></td>
+                </tr>
                 <tr class="crex24 hidden">
                     <td>crex24.com</td>
                     <td><a target="_blank" href="https://crex24.com/exchange/BBS-BTC">BTC / BBS</a></td>
@@ -439,6 +445,14 @@
         $.getJSON('https://api.coinmarketcap.com/v2/ticker/', function(price) {
             var btcUsd = price.data['1']['quotes']['USD']['price'];
             var xmrUsd = price.data['328']['quotes']['USD']['price'];
+
+            $.getJSON('https://tradeogre.com/api/v1/ticker/BTC-BBS', function(data) {
+                var bbs = data.volume;
+                $('#volume_btc_tradeogre').text(bbs + ' BTC');
+                $('#volume_usd_tradeogre').text('$' + parseFloat(bbs * btcUsd).toFixed(2))
+                $('.tradeogre').removeClass('hidden');
+                $('#ticker').removeClass('hidden');
+            });
 
             $.getJSON('https://api.altex.exchange/v1/ticker', function(data) {
                 var xmr = data.data.XMR_BBS;
