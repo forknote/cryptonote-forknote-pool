@@ -90,7 +90,7 @@
 
 <div class="row">
     <div id="ticker" class="col-md-6 stats hidden">
-        <h3 id="marketHeader">Market</h3>
+        <h3 id="marketHeader">Markets</h3>
         <table>
             <thead>
                 <tr>
@@ -105,6 +105,7 @@
                 <tr class="tradeogre hidden">
                     <td>TradeOgre</td>
                     <td><a target="_blank" href="https://tradeogre.com/exchange/BTC-BBS">BTC / BBS</a></td>
+                    <!-- <td><span id="volume_bbs_tradeogre">N / A</span></td> -->
                     <td><span id="volume_btc_tradeogre"></span></td>
                     <td><span id="volume_usd_tradeogre"></span></td>
                 </tr>
@@ -132,12 +133,19 @@
                 <tr class="alex-ltc hidden">
                     <td>altex.exchange</td>
                     <td><a target="_blank" href="https://altex.exchange/markets&amp;pair=LTC_BBS">LTC / BBS</a></td>
-                    <!-- <td><span id="volume_btcbbs_altex"></span></td> -->
+                    <!-- <td><span id="volume_ltcbbs_altex"></span></td> -->
                     <td><span id="volume_ltc_altex"></span></td>
                     <td><span id="volume_ltcusd_altex"></span></td>
                 </tr>
+                <tr>
+                    <td><span style="font-size: 10px">Total volume in 24 hours: $<span id="totalVolume"></span></span></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
+        
     </div>
 </div>
 </div>
@@ -440,6 +448,8 @@
     var xhrMarketGets = {};
     updateMarkets();
     function updateMarkets(){
+        $('#totalVolume').text('');
+
         $.getJSON('http://pool.bbscoin.xyz/crex24', function(data) {
             var bbs = data.Tickers[0];
             // $('#volume_bbs_crex24').text(parseInt(bbs['QuoteVolume']).toLocaleString() + ' BBS');
@@ -458,6 +468,7 @@
                 var bbs = data.volume;
                 $('#volume_btc_tradeogre').text(bbs + ' BTC');
                 $('#volume_usd_tradeogre').text('$' + parseFloat(bbs * btcUsd).toFixed(2))
+                increment(bbs * btcUsd);
                 $('.tradeogre').removeClass('hidden');
                 $('#ticker').removeClass('hidden');
             });
@@ -470,20 +481,29 @@
                 // $('#volume_xmrbbs_altex').text(parseInt(xmr.BBS).toLocaleString() + ' BBS');
                 $('#volume_xmr_altex').text(xmr.XMR + ' XMR');
                 $('#volume_xmrusd_altex').text('$' + parseFloat(xmr.XMR * xmrUsd).toFixed(2))
+                increment(xmr.XMR * xmrUsd);
                 $('.alex-xmr').removeClass('hidden');
 
                 // $('#volume_btcbbs_altex').text(parseInt(btc.BBS).toLocaleString() + ' BBS');
                 $('#volume_btc_altex').text(btc.BTC + ' BTC');
                 $('#volume_btcusd_altex').text('$' + parseFloat(btc.BTC * btcUsd).toFixed(2))
+                increment(btc.BTC * btcUsd);
                 $('.alex-btc').removeClass('hidden');
 
+                // $('#volume_ltcbbs_altex').text(parseInt(ltc.BBS).toLocaleString() + ' BBS');
                 $('#volume_ltc_altex').text(ltc.LTC + ' LTC');
                 $('#volume_ltcusd_altex').text('$' + parseFloat(ltc.LTC * ltcUsd).toFixed(2))
+                increment(ltc.LTC * ltcUsd);
                 $('.alex-ltc').removeClass('hidden');
 
                 $('#ticker').removeClass('hidden');
             });
         });
+    }
+
+    function increment(num) {
+        var sum = Number($('#totalVolume').text() || '0');
+        $('#totalVolume').text((sum + num).toFixed(2));
     }
 
     /* Hash Profitability Calculator */
