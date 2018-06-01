@@ -21,7 +21,7 @@
         "clusterForks": "auto",
         "poolAddress": "fyRy687AQmvM7a1kYCssHvKBhmJD7AGfARUo9qhnJUCteLcZQtifoKgboZY4kpXcczPYAn3xKSjqr7btbFQN1zFw18js6fZXK",
         "blockRefreshInterval": 1000,
-        "minerTimeout": 900,
+        "minerTimeout": 10000,
         "ports": [
             {
                 "port": 3333,
@@ -40,17 +40,17 @@
             },
             {
                 "port": 8888,
-                "difficulty": 5000000,
+                "difficulty": 2500000,
                 "desc": "Professionals and NiceHash"
             }
         ],
         "varDiff": {
-            "minDiff": 100,
-            "maxDiff": 200000,
+            "minDiff": 1000,
+            "maxDiff": 500000,
             "targetTime": 100,
             "retargetTime": 30,
             "variancePercent": 30,
-            "maxJump": 100
+            "maxJump": 1000
         },
         "fixedDiff": {
             "enabled": true,
@@ -79,11 +79,11 @@
     "payments": {
         "enabled": true,
         "interval": 1800,
-        "maxAddresses": 20,
+        "maxAddresses": 25,
         "mixin": 0,
         "transferFee": 10000000000,
         "minPayment": 500000000000,
-        "maxTransactionAmount": 250000000000000,
+        "maxTransactionAmount": 200000000000000,
         "denomination": 100000000
     },
 
@@ -104,7 +104,7 @@
         "port": 8117,
         "blocks": 30,
         "payments": 30,
-        "password": "password"
+        "password": "qEG2Jd9sUjQ8"
     },
 
     "daemon": {
