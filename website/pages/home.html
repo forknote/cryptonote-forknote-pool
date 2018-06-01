@@ -455,6 +455,7 @@
             // $('#volume_bbs_crex24').text(parseInt(bbs['QuoteVolume']).toLocaleString() + ' BBS');
             $('#volume_btc_crex24').text(parseFloat(bbs['VolumeInBtc']).toFixed(8) + ' BTC');
             $('#volume_usd_crex24').text('$' + parseFloat(bbs['VolumeInUsd']).toFixed(2))
+            increment(bbs['VolumeInUsd']);
             $('.crex24').removeClass('hidden');
             $('#ticker').removeClass('hidden');
         });
@@ -502,8 +503,8 @@
     }
 
     function increment(num) {
-        var sum = Number($('#totalVolume').text() || '0');
-        $('#totalVolume').text((sum + num).toFixed(2));
+        var sum = parseFloat($('#totalVolume').text() || '0');
+        $('#totalVolume').text((sum + parseFloat(num)).toFixed(2));
     }
 
     /* Hash Profitability Calculator */
