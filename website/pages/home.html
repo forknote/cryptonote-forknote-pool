@@ -137,6 +137,13 @@
                     <td><span id="volume_ltc_altex"></span></td>
                     <td><span id="volume_ltcusd_altex"></span></td>
                 </tr>
+                <tr class="alex-doge hidden">
+                    <td>altex.exchange</td>
+                    <td><a target="_blank" href="https://altex.exchange/markets&amp;pair=DOGE_BBS">DOGE / BBS</a></td>
+                    <!-- <td><span id="volume_ltcbbs_altex"></span></td> -->
+                    <td><span id="volume_doge_altex"></span></td>
+                    <td><span id="volume_dogeusd_altex"></span></td>
+                </tr>
                 <tr>
                     <td><span style="font-size: 11px">Total volume in 24 hours: $<span id="totalVolume"></span></span></td>
                     <td></td>
@@ -464,6 +471,7 @@
             var btcUsd = price.data['1']['quotes']['USD']['price'];
             var xmrUsd = price.data['328']['quotes']['USD']['price'];
             var ltcUsd = price.data['2']['quotes']['USD']['price'];
+            var dogeUsd = price.data['74']['quotes']['USD']['price'];
 
             $.getJSON('https://tradeogre.com/api/v1/ticker/BTC-BBS', function(data) {
                 var bbs = data.volume;
@@ -478,6 +486,7 @@
                 var xmr = data.data.XMR_BBS;
                 var btc = data.data.BTC_BBS;
                 var ltc = data.data.LTC_BBS;
+                var doge = data.data.DOGE_BBS;
 
                 // $('#volume_xmrbbs_altex').text(parseInt(xmr.BBS).toLocaleString() + ' BBS');
                 $('#volume_xmr_altex').text(xmr.XMR + ' XMR');
@@ -496,6 +505,11 @@
                 $('#volume_ltcusd_altex').text('$' + parseFloat(ltc.LTC * ltcUsd).toFixed(2))
                 increment(ltc.LTC * ltcUsd);
                 $('.alex-ltc').removeClass('hidden');
+
+                $('#volume_doge_altex').text(doge.DOGE + ' DOGE');
+                $('#volume_dogeusd_altex').text('$' + parseFloat(doge.DOGE * dogeUsd).toFixed(2))
+                increment(doge.DOGE * dogeUsd);
+                $('.alex-doge').removeClass('hidden');
 
                 $('#ticker').removeClass('hidden');
             });
