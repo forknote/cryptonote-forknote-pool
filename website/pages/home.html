@@ -457,7 +457,7 @@
     function updateMarkets(){
         $('#totalVolume').text('');
 
-        $.getJSON('https://api.crex24.com/v2/public/tickers?instrument=BBS-BTC', function(data) {
+        $.getJSON('http://pool.bbscoin.xyz/crex24', function(data) {
             var bbs = data[0];
             // $('#volume_bbs_crex24').text(parseInt(bbs['QuoteVolume']).toLocaleString() + ' BBS');
             $('#volume_btc_crex24').text(parseFloat(bbs['volumeInBtc']).toFixed(8) + ' BTC');
