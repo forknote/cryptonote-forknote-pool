@@ -102,12 +102,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="tradeogre hidden">
+                <tr class="tradeogre-btc hidden">
                     <td>TradeOgre</td>
                     <td><a target="_blank" href="https://tradeogre.com/exchange/BTC-BBS">BTC / BBS</a></td>
                     <!-- <td><span id="volume_bbs_tradeogre">N / A</span></td> -->
                     <td><span id="volume_btc_tradeogre"></span></td>
-                    <td><span id="volume_usd_tradeogre"></span></td>
+                    <td><span id="volume_btcusd_tradeogre"></span></td>
+                </tr>
+                <tr class="tradeogre-ltc hidden">
+                    <td>TradeOgre</td>
+                    <td><a target="_blank" href="https://tradeogre.com/exchange/LTC-BBS">LTC / BBS</a></td>
+                    <!-- <td><span id="volume_bbs_tradeogre">N / A</span></td> -->
+                    <td><span id="volume_ltc_tradeogre"></span></td>
+                    <td><span id="volume_ltcusd_tradeogre"></span></td>
                 </tr>
                 <tr class="crex24 hidden">
                     <td>crex24.com</td>
@@ -476,9 +483,18 @@
             $.getJSON('https://tradeogre.com/api/v1/ticker/BTC-BBS', function(data) {
                 var bbs = data.volume;
                 $('#volume_btc_tradeogre').text(bbs + ' BTC');
-                $('#volume_usd_tradeogre').text('$' + parseFloat(bbs * btcUsd).toFixed(2))
+                $('#volume_btcusd_tradeogre').text('$' + parseFloat(bbs * btcUsd).toFixed(2))
                 increment(bbs * btcUsd);
-                $('.tradeogre').removeClass('hidden');
+                $('.tradeogre-btc').removeClass('hidden');
+                $('#ticker').removeClass('hidden');
+            });
+
+            $.getJSON('https://tradeogre.com/api/v1/ticker/LTC-BBS', function(data) {
+                var bbs = data.volume;
+                $('#volume_ltc_tradeogre').text(bbs + ' LTC');
+                $('#volume_ltcusd_tradeogre').text('$' + parseFloat(bbs * ltcUsd).toFixed(2))
+                increment(bbs * ltcUsd);
+                $('.tradeogre-ltc').removeClass('hidden');
                 $('#ticker').removeClass('hidden');
             });
 
