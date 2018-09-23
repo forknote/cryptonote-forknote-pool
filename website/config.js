@@ -33,6 +33,7 @@ var networkStat = {
 		['bbs.codpool.com', 'https://pool1.codpool.com:8116'],
 		['bbs.minersunite.net', 'https://bbs.minersunite.net/api'],
 		['bbs.hashmine.top', 'https://bbs.hashmine.top:8117'],
-		['bbs.proxpool.com', 'http://bbs-pool.proxpool.com/api']
+		['bbs.proxpool.com', 'http://bbs-pool.proxpool.com/api'],
+		['bbs.minersunite.net', 'https://bbs.minersunite.net/api']
     ]
 };

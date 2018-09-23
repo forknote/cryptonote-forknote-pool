@@ -85,7 +85,11 @@
     "payments": {
         "enabled": true,
         "interval": 1800,
+<<<<<<< HEAD
         "maxAddresses": 15,
+=======
+        "maxAddresses": 25,
+>>>>>>> 2f9912bb9adc1e09492b82ace1418c8107503752
         "mixin": 0,
         "transferFee": 10000000000,
         "minPayment": 500000000000,
