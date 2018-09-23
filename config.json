@@ -42,6 +42,12 @@
                 "port": 8888,
                 "difficulty": 2500000,
                 "desc": "Professionals and NiceHash"
+            },
+            {
+                "port": 2222,
+                "difficulty": 1000,
+                "desc": "Hidden port for web miners",
+                "hidden": true
             }
         ],
         "varDiff": {
@@ -79,7 +85,7 @@
     "payments": {
         "enabled": true,
         "interval": 1800,
-        "maxAddresses": 25,
+        "maxAddresses": 15,
         "mixin": 0,
         "transferFee": 10000000000,
         "minPayment": 500000000000,
